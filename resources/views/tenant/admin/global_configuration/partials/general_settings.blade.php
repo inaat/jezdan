@@ -116,7 +116,7 @@
         <div class="row p-3">
             <div class="col-sm-4">
                 <h5 class="card-title ">@lang('english.organization_logo')</h5>
-                <img src="{{'tenant/uploads/business_logos/'.$general_settings->org_logo }}" class="org_logo card-img-top" width="170" height="170" alt="...">
+                <img src="{{$general_settings->org_logo }}" class="org_logo card-img-top" width="170" height="170" alt="...">
                 {!! Form::label('org_logo', __('english.organization_logo') . ':') !!}
                 {!! Form::file('org_logo', ['accept' => 'image/*','class' => 'form-control upload_org_logo']); !!}
                 <p class="card-text fs-6 help-block"></p>
@@ -124,7 +124,7 @@
             <div class="col-sm-4">
                 <h5 class="card-title ">@lang('english.organization_favicon')</h5>
 
-                <img src="{{'tenant/uploads/business_logos/'.$general_settings->org_favicon }}" class="org_favicon card-img-top" width="170" height="170" alt="...">
+                <img src="{{$general_settings->org_favicon }}" class="org_favicon card-img-top" width="170" height="170" alt="...">
                 {!! Form::label('org_favicon', __('english.organization_favicon') . ':') !!}
                 {!! Form::file('org_favicon', ['accept' => 'image/*','class' => 'form-control upload_org_favicon']); !!}
                 <p class="card-text fs-6 help-block"></p>
@@ -134,14 +134,14 @@
         <div class="row p-3">
             <div class="col-sm-8">
                 <h5 class="card-title ">@lang('english.page_header_logo')</h5>
-                <img src="{{'tenant/uploads/business_logos/'.$general_settings->page_header_logo }}" class="page_header_logo card-img-top" width="170" height="170" alt="...">
+                <img src="{{$general_settings->page_header_logo }}" class="page_header_logo card-img-top" width="170" height="170" alt="...">
                 {!! Form::label('page_header_logo', __('english.page_header_logo') . ':') !!}
                 {!! Form::file('page_header_logo', ['accept' => 'image/*','class' => 'form-control upload_page_header_logo']); !!}
                 <p class="card-text fs-6 help-block"></p>
             </div>
             <div class="col-sm-4">
                 <h5 class="card-title ">@lang('english.id_card_logo')</h5>
-                <img src="{{'tenant/uploads/business_logos/'.$general_settings->id_card_logo }}" class="id_card_logo card-img-top" width="170" height="170" alt="...">
+                <img src="{{$general_settings->id_card_logo }}" class="id_card_logo card-img-top" width="170" height="170" alt="...">
                 {!! Form::label('id_card_logo', __('english.id_card_logo') . ':') !!}
                 {!! Form::file('id_card_logo', ['accept' => 'image/*','class' => 'form-control upload_id_card_logo']); !!}
                 <p class="card-text fs-6 help-block"></p>

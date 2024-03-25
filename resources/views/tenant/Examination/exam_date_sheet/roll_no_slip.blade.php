@@ -181,8 +181,8 @@
                         </table>
                     </div>
                     <div class="sidebar-first">
-                        @if (file_exists(public_path('tenant/uploads/student_image/' . $std['student_exam']->student->student_image)))
-                        <img width="100%" height="100" src="{{ url('tenant/uploads/student_image/' . $std['student_exam']->student->student_image) }}" />
+                        @if (file_exists( $std['student_exam']->student->student_image))
+                        <img width="100%" height="100" src="{{ url($std['student_exam']->student->student_image) }}" />
                         @else
                         <img width="100%" height="100" src="{{ url('tenant/uploads/student_image/default.png') }}" />
                         @endif

@@ -43,7 +43,7 @@ class FeeCardPrintController extends Controller
             abort(403, 'Unauthorized action.');
         }
         if (request()->ajax()) {
-            try {
+           try {
                 $output = [
                     'success' => 0,
                     'msg' => trans("messages.something_went_wrong")
@@ -55,19 +55,21 @@ class FeeCardPrintController extends Controller
                     ->where('month', $current_transaction->month)
                     ->where('student_id', $current_transaction->student_id)
                     ->whereDate('transaction_date', $current_transaction->transaction_date)->get();
-                //dd($current_transport);
+                
                 $date = \Carbon::parse($current_transaction->transaction_date);
                 $year = $date->year;
                 $current_transaction_paid = $this->__paymentPaid($current_transaction->student_id, $year, $current_transaction->month);
                 //dd($current_transaction_paid);
                 $query = $this->getSessionWiseTransaction($current_transaction->student_id, $year);
-
+                
                 $old_due = $this->getFeeCardStudentDue($current_transaction->student_id, $year);
                 //dd($old_due);
-
+                
                 // dd($per_transaction);
                 $fee_transaction_payment = $this->__paymentQuery($current_transaction->student_id, $year);
+               
                 $transaction_formatted = $this->__transaction_format($query);
+              
                 $payment_formatted = $this->__payment_format($fee_transaction_payment);
 
                 $fee_transaction_payment_discount = $this->__paymentQueryForDiscount($current_transaction->student_id, $year);
@@ -75,7 +77,7 @@ class FeeCardPrintController extends Controller
                 //        dd($discount_payment_formatted);
 
 
-
+               
                 $balance = $this->__transaction_paid_total_final_format($transaction_formatted, $payment_formatted, $old_due, $discount_payment_formatted);
 
                 $student_dues = $this->studentUtil->getStudentDue($current_transaction->student_id);
@@ -89,7 +91,7 @@ class FeeCardPrintController extends Controller
                     'payment_formatted' => $payment_formatted,
                     'discount_payment_formatted' => $discount_payment_formatted,
                     'balance' => $balance,
-                    'student_image' => '/uploads/student_image/' . $current_transaction->student->student_image,
+                    'student_image' => $current_transaction->student->student_image,
                     'total_due' => $student_dues->total_due,
                     'current_headings' => $current_headings,
                     'fee_month' => $latest_transaction->month
@@ -97,6 +99,7 @@ class FeeCardPrintController extends Controller
 
                 ];
                 $student = $feeCards;
+               
                 $receipt = $this->receiptContent($student);
 
 
@@ -191,7 +194,7 @@ class FeeCardPrintController extends Controller
                                     'payment_formatted' => $payment_formatted,
                                     'discount_payment_formatted' => $discount_payment_formatted,
                                     'balance' => $balance,
-                                    'student_image' => '/uploads/student_image/' . $current_transaction->student->student_image,
+                                    'student_image' =>  $current_transaction->student->student_image,
                                     'total_due' => $student_dues->total_due,
                                     'fee_month' => $latest_transaction->month,
                                     'current_headings' => $current_headings,
@@ -208,7 +211,7 @@ class FeeCardPrintController extends Controller
                                 'payment_formatted'=>$payment_formatted,
                                 'discount_payment_formatted'=>$discount_payment_formatted,
                                 'balance'=>$balance,
-                                'student_image'=>'/uploads/student_image/'.$current_transaction->student->student_image,
+                                'student_image'=>$current_transaction->student->student_image,
                                 'total_due'=>$student_dues->total_due,
                                 'fee_month'=>$latest_transaction->month,
                                 'current_headings'=>$current_headings,
@@ -279,7 +282,7 @@ class FeeCardPrintController extends Controller
     {
         $transaction_formatted = [];
         foreach ($query as $q) {
-            foreach (__('lang.index_months') as $key => $month) {
+            foreach (__('english.index_months') as $key => $month) {
                 if ($q->month == $key) {
                     $transaction_formatted[$month] = $q->total_invoice;
                 } else {
@@ -295,7 +298,7 @@ class FeeCardPrintController extends Controller
     {
         $payment_formatted = [];
         foreach ($query as $p) {
-            foreach (__('lang.index_months') as $key => $month) {
+            foreach (__('english.index_months') as $key => $month) {
                 if ($p->month == $key) {
                     $payment_formatted[$month] = $p->total_paid;
                 } else {
@@ -371,7 +374,7 @@ class FeeCardPrintController extends Controller
     private function __base64encode($image, $type = null)
     {
         if (!empty($image)) {
-            $path = public_path('uploads/student_image/' . $image);
+            $path = public_path($image);
         } else {
             $path = public_path('uploads/student_image/default.png');
         }

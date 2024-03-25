@@ -128,7 +128,7 @@ $(document).ready(function() {
                         if (result.data.fee_transaction != null) {
                             $('#voucher_no').val(result.data.fee_transaction.voucher_no);
                         }
-                        $(".student_image").attr("src", base_path + '/uploads/student_image/' + result.data.student_details.student_image);
+                        $(".student_image").attr("src", base_path + '/'+ result.data.student_details.student_image);
 
                         $('.fee-heads')
                             .append(result.html_content);
@@ -208,7 +208,7 @@ $(document).ready(function() {
                             
                         //     $('.fee-heads-details').remove();
                         //     $('table.ajax_get tbody').find("tr:first").trigger("click");
-                        //     $(".student_image").attr("src", base_path + '/uploads/student_image/default.png');
+                        //     $(".student_image").attr("src", base_path + '/tenant/uploads/student_image/default.png');
 
 
                         // } else {
@@ -284,7 +284,7 @@ $(document).ready(function() {
                         .attr('disabled', false);
                     $('.fee-heads-details').remove();
                     form.trigger("reset");
-                    $(".student_image").attr("src", base_path + '/uploads/student_image/default.png');
+                    $(".student_image").attr("src", base_path + '/tenant/uploads/student_image/default.png');
 
                     //$("#month_id").trigger( "change" );
                     $('select').each(function() {
@@ -623,7 +623,7 @@ $(document).ready(function() {
                                 .trigger("click");
                             $(".student_image").attr(
                                 "src",
-                                base_path + "/uploads/student_image/default.png"
+                                base_path + "/tenant/uploads/student_image/default.png"
                             );
                         } else {
                             toastr.error(result.msg);

@@ -40,7 +40,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="box-body box-profile text-center">
-                                    <img src="{{ !empty($student->student_image)  ? url('tenant/uploads/student_image/', $student->student_image) : url('tenant/uploads/student_image/default.png') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100" height="100">
+                                    <img src="{{ !empty($student->student_image)  ? url($student->student_image) : url('tenant/uploads/student_image/default.png') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100" height="100">
                                     <h6 class="profile-username text-center">{{ ucwords($student->first_name . ' '. $student->last_name) }}</h6>
 
                                     <ul class="list-group list-group-unbordered list-group list-group-flush">
@@ -82,7 +82,7 @@
                                 <h3 class="card-title text-primary">@lang('english.sibling')</h3>
 
                                 <div class="box-body box-profile text-center">
-                                    <img src="{{ !empty($std->students->student_image)  ? url('tenant/uploads/student_image/', $std->students->student_image) : url('tenant/uploads/student_image/default.png') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100" height="100">
+                                    <img src="{{ !empty($std->students->student_image)  ? url($std->students->student_image) : url('tenant/uploads/student_image/default.png') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100" height="100">
                                     <a href="{{ action('StudentController@studentProfile',$std->students->id) }}">
                                         <h6 class="profile-username text-center text-primary">{{ ucwords($std->students->first_name . ' '. $std->students->last_name) }}</h6>
                                     </a>

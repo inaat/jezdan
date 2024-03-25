@@ -208,7 +208,7 @@
     </div>
     <div class="photo">
         @php
-    $path = public_path('tenant/uploads/student_image/'.$student->student_image);
+    $path = public_path($student->student_image);
     $type = pathinfo($path, PATHINFO_EXTENSION);
     $data = file_get_contents($path);
     $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);

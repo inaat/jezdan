@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper navbar-vertical-content" data-simplebar="true" id="navbar-vertical-content">
     <div class="sidebar-header">
         <div>
-            <img src="{{ url('/tenant/uploads/business_logos/' . session()->get('system_details.org_logo', '')) }}"
+            <img src="{{ url(session()->get('system_details.org_logo', '')) }}"
                 class="logo-icon" alt="logo icon">
         </div>
         <div>

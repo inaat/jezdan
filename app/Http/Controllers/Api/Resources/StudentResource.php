@@ -28,7 +28,7 @@ class StudentResource extends JsonResource
             'section_id'=>$student->current_class_section->id,
             'category'=>$student->studentCategory?$student->studentCategory->cat_name:'',
             'roll_no'=>$student->roll_no,
-            'student_image' => url('tenant/uploads/student_image/'.$student->student_image)
+            'student_image' => url($student->student_image)
 
                         //'role' => $this->role
         ];

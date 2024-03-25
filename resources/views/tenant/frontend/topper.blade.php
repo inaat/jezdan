@@ -32,7 +32,7 @@
                          @foreach ($topers as $top)
                          <div class="inner-block wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                              <figure class="image-box" style="width:170px; height:200px;    object-fit: fill;"><a href="#">
-                                     <img src="{{url('tenant/uploads/student_image/' . $top['data']->student->student_image) }}" alt="" ></a>
+                                     <img src="{{url($top['data']->student->student_image) }}" alt="" ></a>
                              </figure>
                              <div class="lower-content" style="zoom:60%">
                                  <h3><a href="#">{{ ucwords($top['data']->student->first_name . ' ' . $top['data']->student->last_name) }} </a></h3>

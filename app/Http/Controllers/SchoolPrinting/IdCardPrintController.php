@@ -94,12 +94,12 @@ class IdCardPrintController extends Controller
 
         if ($design_type=="horizontal") {
             if ($pdf) {
-                return view('tenant.MPDF.horizontal_student_id_card')->with(compact('students'));
+                return view('tenant.tenant.MPDF.horizontal_student_id_card')->with(compact('students'));
             }
             $snappy  = \WPDF::loadview('tenant.school-printing.id-card.class-wise-id-card', compact('students'));
         } else {
             if ($pdf) {
-                return view('tenant.MPDF.vertical_student_id_card')->with(compact('students'));
+                return view('tenant.tenant.MPDF.vertical_student_id_card')->with(compact('students'));
             }
             $snappy  = \WPDF::loadview('tenant.school-printing.id-card.vertical_id_card', compact('students'));
         }
@@ -160,7 +160,7 @@ class IdCardPrintController extends Controller
         $pdf_name='employee-id-card'.'.pdf';
         $pdf =  config('constants.mpdf');
         if ($pdf) {
-            return view('tenant.MPDF.horizontal_employee_card')->with(compact('employees'));
+            return view('tenant.tenant.MPDF.horizontal_employee_card')->with(compact('employees'));
         }
         $snappy  = \WPDF::loadview('tenant.school-printing.employee-id-card.employee-id-card', compact('employees'));
 

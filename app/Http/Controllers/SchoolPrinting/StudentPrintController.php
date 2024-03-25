@@ -261,7 +261,7 @@ if ($std->total_due!=0) {
         //dd($student_list);
         $pdf =  config('constants.mpdf');
         if ($pdf) {
-         $this->reportPDF('samplereport.css', $student_list, 'MPDF.student-particular', 'view', 'a4');
+         $this->reportPDF('samplereport.css', $student_list, 'tenant.MPDF.student-particular', 'view', 'a4');
          } else {
             $snappy  = \WPDF::loadview('tenant.school-printing.student-print.student_particular', compact('student_list'));
             $headerHtml = view()->make('common._header')->render();

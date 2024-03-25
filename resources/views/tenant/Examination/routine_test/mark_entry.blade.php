@@ -107,7 +107,7 @@
                                 <input type="hidden" value="{{ $std->id }}" name="marks[{{$std->id}}][student_id]"/>
                             </td>
                             <td>
-                                <img src="{{ url('tenant/uploads/student_image/' . $std->student_image) }}" alt="" width="40" height="40">
+                                <img src="{{ url($std->student_image) }}" alt="" width="40" height="40">
                             </td>
                             <td>
                                 {!! Form::checkbox('marks[' . $std->id. '][is_absent]', 1, false, ['class' => 'form-check-input mt-2 fee-head-check']) !!} </td>

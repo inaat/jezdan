@@ -164,8 +164,8 @@ $(document).ready(function () {
                         }
                         $(".student_image").attr(
                             "src",
-                            base_path +
-                                "/uploads/student_image/" +
+                            base_path +'/'+
+                                
                                 result.data.student_details.student_image
                         );
 
@@ -338,7 +338,7 @@ $(document).ready(function () {
                     form.trigger("reset");
                     $(".student_image").attr(
                         "src",
-                        base_path + "/uploads/student_image/default.png"
+                        base_path + "/tenant/uploads/student_image/default.png"
                     );
 
                     //$("#month_id").trigger( "change" );

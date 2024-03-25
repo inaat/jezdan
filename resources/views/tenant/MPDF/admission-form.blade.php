@@ -294,8 +294,8 @@
         </div>
         <div class="photo">
 
-            @if (file_exists(public_path('tenant/uploads/student_image/' . $student->student_image)))
-            <img style="width:100%" height="192px" src="{{ url('tenant/uploads/student_image/' . $student->student_image) }}" />
+            @if (file_exists($student->student_image))
+            <img style="width:100%" height="192px" src="{{ url( $student->student_image) }}" />
             @else
             <img style="width:100%" height="192px" src="{{ url('tenant/uploads/student_image/default.png') }}" />
             @endif

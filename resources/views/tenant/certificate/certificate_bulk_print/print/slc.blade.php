@@ -300,8 +300,8 @@
          </table>
 	   </div>
 	   <div class="column photo">
-	                             @if (file_exists(public_path('tenant/uploads/student_image/' . $withdrawal_register->student->student_image)))
-                        <img width="100%" height="170" src="{{ url('tenant/uploads/student_image/' . $withdrawal_register->student->student_image) }}" />
+	                             @if (file_exists( $withdrawal_register->student->student_image))
+                        <img width="100%" height="170" src="{{ url($withdrawal_register->student->student_image) }}" />
                         @else
                         <img width="100%" height="170" src="{{ url('tenant/uploads/student_image/default.png') }}" />
                       @endif

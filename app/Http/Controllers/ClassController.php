@@ -169,12 +169,12 @@ if (auth()->user()->can('class.update')) {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $classes=Classes::find($id);
-        return view('tenant.admin.classes.profile')->with(compact('classes'));
+    // public function show($id)
+    // {
+    //     $classes=Classes::find($id);
+    //     return view('tenant.admin.classes.profile')->with(compact('classes'));
 
-    }
+    // }
 
     /**
      * Show the form for editing the specified resource.

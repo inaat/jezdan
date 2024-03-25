@@ -305,6 +305,7 @@ class FeeCollectionController extends Controller
      */
     public function show($id)
     {
+       
         $output = [];
 
         try {

@@ -97,7 +97,7 @@ class IncomeReportController extends Controller
                 'expenses_payments' => $expenses_payments
 
             ];
-            $this->reportPDF('samplereport.css', $data, 'MPDF.income-report', 'view', 'a4');
+            $this->reportPDF('samplereport.css', $data, 'tenant.MPDF.income-report', 'view', 'a4');
 
 
         } else {

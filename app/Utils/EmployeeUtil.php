@@ -74,8 +74,8 @@ class EmployeeUtil extends Util
         $input['education_ids'] = !empty($request->input('education_ids')) ? $request->input('education_ids') : null;
         $employee=HrmEmployee::with(['user'])->find($id);
         if (!empty($employee_input['employee_image'])) {
-            if (File::exists(public_path('uploads/employee_image/'.$employee->employee_image))) {
-                File::delete(public_path('uploads/employee_image/'.$employee->employee_image));
+            if (File::exists($employee->employee_image)) {
+                File::delete($employee->employee_image);
             }
             $employee_image = $this->uploadFile($request, 'employee_image', 'employee_image', 'image', $employee_input['employeeID']);
             $employee_input['employee_image'] = $employee_image;

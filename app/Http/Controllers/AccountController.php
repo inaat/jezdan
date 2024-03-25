@@ -1183,7 +1183,7 @@ class AccountController extends Controller
         $pdf =  config('constants.mpdf');
         if ($pdf) {
             $data=['start_date'=>$start_date, 'end_date'=>$end_date, 'ledger_transaction'=>$ledger_transaction, 'account'=>$account, 'balance'=>$balance];  
-        $this->reportPDF('normal.css', $data, 'MPDF.account_ledger_pdf','view','a4');
+        $this->reportPDF('normal.css', $data, 'tenant.MPDF.account_ledger_pdf','view','a4');
  }else{
     $snappy  = \WPDF::loadview('tenant.account.account_ledger_pdf', compact('start_date', 'end_date', 'ledger_transaction', 'account', 'balance'));
     $headerHtml = view()->make('common._header')->render();

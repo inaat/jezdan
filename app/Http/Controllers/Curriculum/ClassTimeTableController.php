@@ -372,7 +372,7 @@ class ClassTimeTableController extends Controller
                  'all_subjects'=>$all_subjects, 
                  'teachers'=>$teachers
             ] ;
-            $this->reportPDF('samplereport.css', $data, 'MPDF.class_wise_table','view','a4','landscape');
+            $this->reportPDF('samplereport.css', $data, 'tenant.MPDF.class_wise_table','view','a4','landscape');
 
          }else{
    

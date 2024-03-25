@@ -148,7 +148,7 @@ class Util
             }
         }
         
-        return 'storage/tenant'.tenancy()->tenant->id.'/employee_image/'.$uploaded_file_name;
+        return 'storage/tenant'.tenancy()->tenant->id.'/'.$dir_name.'/'.$uploaded_file_name;
     }
     /**
      * Converts date in System Details format to mysql format
@@ -848,7 +848,7 @@ class Util
                     'campus_id' => $data['campus_id'],
                     'password' => $data['password'],
                     'system_settings_id' => $system_settings_id,
-                    'image' => 'uploads/employee_image/' . $data['employee_image']
+                    'image' =>  $data['employee_image']
 
                 ];
                 $user = User::create($details);
@@ -865,7 +865,7 @@ class Util
                 'password' => $data['password'],
                 'user_type' => $type,
                 'system_settings_id' => $system_settings_id,
-                'image' => 'uploads/employee_image/' . $data['employee_image']
+                'image' =>  $data['employee_image']
             ];
             $check_user->update($user_data);
             $role_id = $role_id;
@@ -912,7 +912,7 @@ class Util
                     'campus_id' => $data['campus_id'],
                     'password' => Hash::make('111111111'),
                     'system_settings_id' => $system_settings_id,
-                    'image' => 'uploads/student_image/' . $data['student_image']
+                    'image' => $data['student_image']
 
                 ];
                 $user = User::create($details);
@@ -929,7 +929,7 @@ class Util
                 'password' => Hash::make('111111111'),
                 'user_type' => $type,
                 'system_settings_id' => $system_settings_id,
-                'image' => 'uploads/student_image/' . $data['student_image']
+                'image' =>  $data['student_image']
             ];
             $check_user->update($user_data);
             $role_id = $role_id;

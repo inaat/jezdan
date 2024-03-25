@@ -2,7 +2,7 @@
      <div class="col-lg-4">
          <div class="border border-3 p-2 rounded">
              <div class="d-flex flex-column align-items-center text-center">
-                 <img src="{{ !empty($student_details->student_image) ? url('tenant/uploads/student_image/', $student_details->student_image) : url('tenant/uploads/student_image/default.png') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+                 <img src="{{ !empty($student_details->student_image) ? url($student_details->student_image) : url('tenant/uploads/student_image/default.png') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
                  <div class="mt-0">
                      <h4 class="mt-0 p-0" style="display:inline">{{ ucwords($student_details->student_name) }}</h4>
                      <p class="text-secondary">{{ $student_details->roll_no }}({{ $student_details->old_roll_no }}) <br>

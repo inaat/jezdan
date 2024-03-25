@@ -292,8 +292,8 @@
          </table>
 	   </div>
 	   <div class="column photo">
-	                             @if (file_exists(public_path('tenant/uploads/student_image/' . $certificate_issue->student->student_image)))
-                        <img width="100%" height="130" src="{{ url('tenant/uploads/student_image/' . $certificate_issue->student->student_image) }}" />
+	                             @if (file_exists($certificate_issue->student->student_image))
+                        <img width="100%" height="130" src="{{ url($certificate_issue->student->student_image) }}" />
                         @else
                         <img width="100%" height="170" src="{{ url('tenant/uploads/student_image/default.png') }}" />
                       @endif

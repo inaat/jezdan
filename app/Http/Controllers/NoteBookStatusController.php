@@ -212,7 +212,7 @@ class NoteBookStatusController extends Controller
             'subjects'=>$subjects
 
         ];
-        $this->reportPDF('samplereport.css', $data, 'MPDF.empty_print', 'view', 'a4');
+        $this->reportPDF('samplereport.css', $data, 'tenant.MPDF.empty_print', 'view', 'a4');
     }
     else{
     $snappy  = \WPDF::loadview('tenant.note_book.empty_print', compact('students', 'subjects'));
@@ -293,7 +293,7 @@ class NoteBookStatusController extends Controller
                 'sections'=>$sections
 
             ];
-            $this->reportPDF('samplereport.css', $data, 'MPDF.note_book_status_report', 'view', 'a4');
+            $this->reportPDF('samplereport.css', $data, 'tenant.MPDF.note_book_status_report', 'view', 'a4');
         }
         else{
     $pdf_name='hrm'.'.pdf';

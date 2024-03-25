@@ -68,7 +68,7 @@ class TeacherApiController extends Controller
             $refresh_token = $this->issueToken($request, 'password')['refresh_token'];
             $expires_in = $this->issueToken($request, 'password')['expires_in'];
             $user = $auth->load(['employee']);
-            $image = file_exists( $user->employee->employee_image) ? url('tenant/uploads/employee_image/' . $user->employee->employee_image) : url('tenant/uploads/employee_image/default.jpg');
+            $image = file_exists( $user->employee->employee_image) ? url( $user->employee->employee_image) : url('tenant/uploads/employee_image/default.jpg');
 
             //dd($user->employee);
             $user = [

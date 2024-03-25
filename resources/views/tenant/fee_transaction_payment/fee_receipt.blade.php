@@ -111,7 +111,7 @@
                 if (item.status == 'struck_up' || item.status == 'inactive') {
                     var string = '<li class="ui-state-disabled ">';
                     string += '<div class="list-group-item"><div class="d-flex"><div class="chat-user-online">';
-                    string += '<img src="' + base_path + '/uploads/student_image/' + item.student_image + '" width="42" height="42" class="rounded-circle" alt="">';
+                    string += '<img src="' + base_path +  item.student_image + '" width="42" height="42" class="rounded-circle" alt="">';
                     string += '</div><div class="flex-grow-1 ms-2"><h6 class="mb-0 chat-title">' + item.student_name + '(' + item.roll_no + ')' + ' (Father Name:' + item.father_name + ')</h6>';
                     string += '<p class="mb-0 chat-msg"> Campus:' + item.campus_name + ' Class ' + item.current_class + ' Old Roll No:' + item.old_roll_no + '  Status:' + item.status + '</p></div>';
                     string += '</div></div>';
@@ -121,7 +121,7 @@
                 } else {
 
                     var string = '<div class="list-group-item"><div class="d-flex">';
-                    string += '<img src="' + base_path + '/uploads/student_image/' + item.student_image + '" width="42" height="42" class="rounded-circle" alt="">';
+                    string += '<img src="' + base_path +  item.student_image + '" width="42" height="42" class="rounded-circle" alt="">';
                     string += '<div class="flex-grow-1 ms-2"><h6 class="mb-0 e">' + item.student_name + '(' + item.roll_no + ')' + ' (Father Name:' + item.father_name + ')</h6>';
                     string += '<p class="mb-0 "> Campus:' + item.campus_name + ' Class ' + item.current_class + '<br> Old Roll No:' + item.old_roll_no + '  Status:' + item.status + '</p></div>';
                     string += '</div></div>';

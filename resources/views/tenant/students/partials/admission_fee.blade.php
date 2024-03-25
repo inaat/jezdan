@@ -12,7 +12,7 @@
 
         <div class="modal-body">
             <div class="d-flex flex-column align-items-center text-center">
-                <img src="{{ !empty($student->student_image) ? url('tenant/uploads/student_image/', $student->student_image) : url('tenant/uploads/student_image/default.png') }}"
+                <img src="{{ !empty($student->student_image) ? url($student->student_image) : url('tenant/uploads/student_image/default.png') }}"
                     alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
                 <h5>({{ ucwords($student->first_name . ' ' . $student->last_name) }})</h5>
             </div>

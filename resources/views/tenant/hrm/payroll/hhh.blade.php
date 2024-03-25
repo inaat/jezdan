@@ -213,7 +213,7 @@
 
                     </div>
                     <div class="info_right">
-                        <img width="100" height="100" src="{{ url('tenant/uploads/employee_image/'.$transaction->employee->employee_image) }}" />
+                        <img width="100" height="100" src="{{ url($transaction->employee->employee_image) }}" />
 
                     </div>
                 </div>

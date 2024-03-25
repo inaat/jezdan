@@ -112,9 +112,9 @@ class TopDefaulterController extends Controller
     })
 
        ->editColumn('student_name', function ($row) {
-        $image = file_exists(public_path('uploads/student_image/'.$row->student_image)) ? $row->student_image : 'default.png';
+        $image = file_exists($row->student_image) ? $row->student_image : 'tenant/uploads/student_image/default.png';
         $status='<div><a  href="' . action('StudentController@studentProfile', [$row->id]) . '">
-     <img src="'.url('tenant/uploads/student_image/' . $image).'" class="rounded-circle " width="50" height="50" alt="" >
+     <img src="'.url($image).'" class="rounded-circle " width="50" height="50" alt="" >
      '.ucwords($row->student_name);
         if ($row->student_transport_fee>0) {
             $status.='<i class="fadeIn animated bx bx-bus-school"></i>';

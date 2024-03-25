@@ -83,7 +83,7 @@ class HrmPrintController extends Controller
             'month_name'=>$month_name,
             'year'=>$year
         ];
-        $this->reportPDF('samplereport.css', $data, 'MPDF.pay_roll_list_print','view','a4','landscape');
+        $this->reportPDF('samplereport.css', $data, 'tenant.MPDF.pay_roll_list_print','view','a4','landscape');
        }else{
     $snappy  = \WPDF::loadview('tenant.hrm.print.employee_print', compact('transactions', 'month_name', 'year'));
     $headerHtml = view()->make('common._header', compact('logo'))->render();
@@ -312,7 +312,7 @@ class HrmPrintController extends Controller
  // dd($student_list);
  $pdf =  config('constants.mpdf');
  if ($pdf) {  
- $this->reportPDF('samplereport.css', $HrmEmployees, 'MPDF.employee_list_print','view','a4');
+ $this->reportPDF('samplereport.css', $HrmEmployees, 'tenant.MPDF.employee_list_print','view','a4');
 }else{
     $snappy  = \WPDF::loadview('tenant.hrm.print.employee_list_print', compact('HrmEmployees'));
     $headerHtml = view()->make('common._header', compact('logo'))->render();

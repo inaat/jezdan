@@ -117,7 +117,7 @@
                         <div class="col-md-2">
                             <div class="row">
                                 <div class="col-md-12">
-                                <img src="{{ !empty($employee->employee_image)  ? url('tenant/uploads/employee_image/', $employee->employee_image) : url('tenant/uploads/employee_image/default.png') }}" class="employee_image card-img-top" width="192px" height="192px" alt="...">
+                                <img src="{{ !empty($employee->employee_image)  ? url($employee->employee_image) : url('tenant/uploads/employee_image/default.png') }}" class="employee_image card-img-top" width="192px" height="192px" alt="...">
                                 {!! Form::label('employee_image', __('english.employee_image') . ':') !!}
                                 {!! Form::file('employee_image', ['accept' => 'image/*','class' => 'form-control upload_employee_image']) !!}
                                 </div>

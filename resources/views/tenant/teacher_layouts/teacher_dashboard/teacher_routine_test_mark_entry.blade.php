@@ -127,7 +127,7 @@
                                 <td>{{ ucwords($data->student->first_name.'  ').$data->student->last_name }}</td>
 
                                 <td>
-                                    <img src="{{ url('tenant/uploads/student_image/' . $data->student->student_image) }}" alt="" width="40" height="40">
+                                    <img src="{{ url($data->student->student_image) }}" alt="" width="40" height="40">
                                 </td>
                                 <td>
                                     {!! Form::checkbox('marks[' . $loop->iteration . '][is_absent]', 1, $data->is_attend, ['class' => 'form-check-input mt-2 fee-head-check']) !!} </td>

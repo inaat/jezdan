@@ -29,6 +29,56 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        \App\Events\FeeTransactionPaymentAdded::class => [
+            \App\Listeners\AddAccountTransaction::class,
+        ],
+        
+        \App\Events\FeeTransactionPaymentUpdated::class => [
+            \App\Listeners\UpdateAccountTransaction::class,
+        ], 
+        \App\Events\FeeTransactionPaymentDeleted::class => [
+            \App\Listeners\DeleteAccountTransaction::class,
+        ],
+
+        //Hrm
+        \App\Events\HrmTransactionPaymentAdded::class => [
+            \App\Listeners\HrmAddAccountTransaction::class,
+        ],
+        
+        \App\Events\HrmTransactionPaymentUpdated::class => [
+            \App\Listeners\HrmUpdateAccountTransaction::class,
+        ], 
+        \App\Events\HrmTransactionPaymentDeleted::class => [
+            \App\Listeners\HrmDeleteAccountTransaction::class,
+        ],
+        //Expense
+            //Hrm
+            \App\Events\ExpenseTransactionPaymentAdded::class => [
+                \App\Listeners\ExpenseAddAccountTransaction::class,
+            ],
+            \App\Events\ExpenseTransactionPaymentUpdated::class => [
+                \App\Listeners\ExpenseUpdateAccountTransaction::class,
+            ],
+            \App\Events\ExpenseTransactionPaymentDeleted::class => [
+                \App\Listeners\ExpenseDeleteAccountTransaction::class,
+            ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         TenantRegisterEvent::class => [
             TenantDomainCreate::class,
             TenantDataSeedListener::class,

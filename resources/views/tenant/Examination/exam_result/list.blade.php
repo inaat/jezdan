@@ -106,7 +106,7 @@
                                 <td>{{ ucwords($student->student->first_name.'  ').$student->student->last_name }}</td>
 
                                 <td>
-                                    <img src="{{ url('tenant/uploads/student_image/' . $student->student->student_image) }}" alt="" width="40" height="40">
+                                    <img src="{{ url($student->student->student_image) }}" alt="" width="40" height="40">
                                 </td>
                                 <td>
                                     {{ @num_format($student->total_mark) }}

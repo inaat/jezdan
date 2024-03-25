@@ -145,7 +145,7 @@ class AttendanceReportController extends Controller
        ];
        $pdf =  config('constants.mpdf');
        if ($pdf) {  
-       $this->reportPDF('samplereport.css', $detail, 'MPDF.student-report-attendance','view','a4','landscape');
+       $this->reportPDF('samplereport.css', $detail, 'tenant.MPDF.student-report-attendance','view','a4','landscape');
 }else{
     $snappy  = \WPDF::loadview('tenant.Report\attendance.report-attendance', compact('days', 'data', 'average', 'student', 'start_date', 'end_date', 'total_no_attendance_days', 'total_no_attendance', 'sundays_weekend'));
     $headerHtml = view()->make('common._header')->render();
@@ -265,7 +265,7 @@ class AttendanceReportController extends Controller
        ];
        $pdf =  config('constants.mpdf');
        if ($pdf) {  
-       $this->reportPDF('samplereport.css', $detail, 'MPDF.hrm-attendance-report','view','a4','landscape');
+       $this->reportPDF('samplereport.css', $detail, 'tenant.MPDF.hrm-attendance-report','view','a4','landscape');
 }else{
     $snappy  = \WPDF::loadview('tenant.Report.attendance.hrm-attendance-report', compact('days', 'data', 'average', 'start_date', 'end_date', 'total_no_attendance_days', 'total_no_attendance', 'sundays_weekend'));
     $headerHtml = view()->make('common._header')->render();

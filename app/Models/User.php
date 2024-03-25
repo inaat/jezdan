@@ -141,6 +141,6 @@ class User extends Authenticatable
     }
        //Getter Attributes
        public function getImageAttribute($value) {
-        return url($value);
+        return $value;
     }
 }

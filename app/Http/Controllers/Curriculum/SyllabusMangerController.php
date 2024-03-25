@@ -283,7 +283,7 @@ class SyllabusMangerController extends Controller
                 'class_syllabus_list'=>$class_syllabus_list,
                 'term'=>$term
             ];
-            $this->reportPDF('samplereport.css', $data, 'MPDF.syllabus', 'view', 'a4');
+            $this->reportPDF('samplereport.css', $data, 'tenant.MPDF.syllabus', 'view', 'a4');
         } else {
     $snappy  = \WPDF::loadview('tenant.Curriculum.syllabus.print', compact('class_syllabus_list', 'term'));
     $headerHtml = view()->make('common._header')->render();

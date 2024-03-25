@@ -168,7 +168,7 @@
             <div class="front">
                 <div class="header">
                     @php
-                    $path = public_path('tenant/uploads/business_logos/'.session()->get('system_details.id_card_logo') );
+                    $path = public_path(session()->get('system_details.id_card_logo') );
                     $type = pathinfo($path, PATHINFO_EXTENSION);
                     $data = file_get_contents($path);
                     $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -191,8 +191,8 @@
                     <div class="std-img">
 
                         @php
-                        if(file_exists(public_path('tenant/uploads/student_image/'.$student->student_image))){
-                        $path1 = public_path('tenant/uploads/student_image/'.$student->student_image);
+                        if(file_exists($student->student_image)){
+                        $path1 = public_path($student->student_image);
                         $type1 = pathinfo($path, PATHINFO_EXTENSION);
                         $data1 = file_get_contents($path1);
                         $student_image = 'data:image/' . $type1 . ';base64,' . base64_encode($data1);

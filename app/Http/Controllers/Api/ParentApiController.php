@@ -657,7 +657,7 @@ class ParentApiController extends Controller
             $subjects=  SubjectTeacher::with(['teacher','class_subject'])->where('class_section_id', $children->current_class_section_id)->get();
             $subject_teachers=[];
             foreach($subjects as $subject){
-                $image = file_exists('uploads/employee_image/'.$subject->teacher->employee_image) ? url('tenant/uploads/employee_image/'.$subject->teacher->employee_image) : url('tenant/uploads/employee_image/default.jpg');
+                $image = file_exists($subject->teacher->employee_image) ? url($subject->teacher->employee_image) : url('tenant/uploads/employee_image/default.jpg');
                 $subject_teachers[]=[
                     'id' => 1,
                     'class_section_id' => $subject->class_section_id,

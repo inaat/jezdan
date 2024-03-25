@@ -183,7 +183,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h5 class="card-title ">@lang('english.student_image')</h5>
-                                <img src="{{ !empty($student->student_image)  ? url('tenant/uploads/student_image/', $student->student_image) : url('tenant/uploads/student_image/default.png') }}" class="student_image card-img-top" width="192px" height="192px" alt="...">
+                                <img src="{{ !empty($student->student_image)  ? url($student->student_image) : url('tenant/uploads/student_image/default.png') }}" class="student_image card-img-top" width="192px" height="192px" alt="...">
                                 {!! Form::label('student_image', __('english.student_image') . ':') !!}
                                 {!! Form::file('student_image', ['accept' => 'image/*','class' => 'form-control upload_student_image']); !!}
                             </div>

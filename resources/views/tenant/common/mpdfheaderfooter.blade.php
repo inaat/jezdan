@@ -1,6 +1,6 @@
    <htmlpageheader name="page-header">
         <div style="text-align:center; width:100% ">
-<img src="{{  url('/uploads/business_logos/'.session()->get("system_details.page_header_logo")) }}" style="text-align:center; width:100% ; height:120px"/></div>
+<img src="{{  url(session()->get("system_details.page_header_logo")) }}" style="text-align:center; width:100% ; height:120px"/></div>
 
 </htmlpageheader>
 <htmlpagefooter name="page-footer">

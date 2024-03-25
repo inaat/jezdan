@@ -172,7 +172,7 @@ class FrontHomeController extends Controller
                      'full_name'=>$value->full_name,
                      'designation'=>$value->designation,
                      'educations'=>$educations,
-                     'image' => file_exists(public_path('uploads/employee_image/'.$value->employee_image)) ? url('tenant/uploads/employee_image/'.$value->employee_image) : url('tenant/uploads/employee_image/default.jpg')
+                     'image' => file_exists($value->employee_image) ? url($value->employee_image) : url('tenant/uploads/employee_image/default.jpg')
 
                 ];
              
@@ -181,7 +181,7 @@ class FrontHomeController extends Controller
                     'full_name'=>$value->full_name,
                     'designation'=>$value->designation,
                     'educations'=>'',
-                    'image' => file_exists(public_path('uploads/employee_image/'.$value->employee_image)) ? url('tenant/uploads/employee_image/'.$value->employee_image) : url('tenant/uploads/employee_image/default.jpg')
+                    'image' => file_exists($value->employee_image) ? url($value->employee_image) : url('tenant/uploads/employee_image/default.jpg')
 
                ];
             }
@@ -358,7 +358,7 @@ public function emptyAdmissionForm()
     }
 
    
-    return view('tenant.MPDF.empty-admission-form');
+    return view('tenant.tenant.MPDF.empty-admission-form');
     
    
 }

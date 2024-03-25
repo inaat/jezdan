@@ -115,7 +115,7 @@
                              <div class="col-6">
 
                                  <div class="col-md-12 ">
-                                     <img src="{{ url('/uploads/student_image/default.png') }}" class="student_image card-img-top" width="100%" height="107px" alt="...">
+                                     <img src="{{ url('/tenant/uploads/student_image/default.png') }}" class="student_image card-img-top" width="100%" height="107px" alt="...">
 
                                  </div>
 

@@ -102,7 +102,7 @@
 
         <div class="main-box">
             <div class="big-circle">
-                <div class="small-circle" style="background-image: url('{{ url('tenant/uploads/student_image/' . $student['data']->student->student_image) }}') ">
+                <div class="small-circle" style="background-image: url('{{ url($student['data']->student->student_image) }}') ">
 
                 </div>
             </div>

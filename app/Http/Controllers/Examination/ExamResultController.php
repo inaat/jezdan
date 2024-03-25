@@ -353,7 +353,7 @@ class ExamResultController extends Controller
         $pdf =  config('constants.mpdf');
         $data=['type' => $type, 'students'=>$students];
         if ($pdf) {
-            $this->reportPDF('samplereport.css', $data, 'MPDF.top_position_list', 'view', 'a4');
+            $this->reportPDF('samplereport.css', $data, 'tenant.MPDF.top_position_list', 'view', 'a4');
         } else{
     $pdf_name='topPosition'.'.pdf';
     $snappy  = \WPDF::loadview('tenant.Examination.exam_result.top_position_list_print', compact('students', 'type'));

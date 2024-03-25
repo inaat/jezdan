@@ -40,7 +40,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="box-body box-profile text-center">
-                                    <img src="{{ file_exists(public_path('tenant/uploads/employee_image/'.$employee->employee_image))  ? url('tenant/uploads/employee_image/', $employee->employee_image) : url('tenant/uploads/employee_image/default.jpg') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="150" height="150">
+                                    <img src="{{ file_exists($employee->employee_image) ? url($employee->employee_image) : url('tenant/uploads/employee_image/default.jpg') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="150" height="150">
                                     <h6 class="profile-username text-center  mt-2">{{ ucwords($employee->first_name . ' '. $employee->last_name) }}</h6>
 
                                     <ul class="list-group list-group-unbordered list-group list-group-flush">

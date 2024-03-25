@@ -43,12 +43,18 @@ Route::middleware([
     Route::middleware(['auth'])->group(function () {
         Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     });
-    
+    Route::get('/get_provinces', 'ProvinceController@getProvinces');
+Route::get('/get_districts', 'DistrictController@getDistricts');
+Route::get('/get_cities', 'CityController@getCities');
+Route::get('/get_regions', 'RegionController@getRegions');
+Route::get('/classes/get_campus_classes', 'ClassController@getCampusClass');
+
 Route::middleware(['auth','SetSessionData','timezone','AdminSidebarMenu','FrontSessionData'])->group(function () {
     Route::resource('session', 'SessionController');
     Route::put('session/activate-session/{id}', 'SessionController@activateSession');
     Route::post('student/update-status', 'StudentController@updateStatus');
     Route::get('/sessions/get_roll_no', 'SessionController@getRollNo');
+    
     Route::get('/classes/get_class_fee', 'ClassController@getClassFee');
     Route::get('/classes/get_class_section', 'ClassController@getClassSection');
   
