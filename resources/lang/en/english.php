@@ -178,6 +178,20 @@ return [
        11 => 'November',
        12 => 'December'
    ],
+  
+       'january' => 'January',
+       'february' => 'February',
+       'march' => 'March',
+       'april'=> 'April',
+       'may' => 'May',
+       'june' => 'June',
+       'july' => 'July',
+       'august' => 'August',
+       'september' => 'September',
+       'october' => 'October',
+       'november' => 'November',
+       'december' => 'December',
+
    
    'index_months' => [
        1=>1,

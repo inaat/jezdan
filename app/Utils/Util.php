@@ -35,30 +35,30 @@ class Util
     public function getDays()
     {
         return [
-            'sunday' => __('lang.sunday'),
-            'monday' => __('lang.monday'),
-            'tuesday' => __('lang.tuesday'),
-            'wednesday' => __('lang.wednesday'),
-            'thursday' => __('lang.thursday'),
-            'friday' => __('lang.friday'),
-            'saturday' => __('lang.saturday'),
+            'sunday' => __('english.sunday'),
+            'monday' => __('english.monday'),
+            'tuesday' => __('english.tuesday'),
+            'wednesday' => __('english.wednesday'),
+            'thursday' => __('english.thursday'),
+            'friday' => __('english.friday'),
+            'saturday' => __('english.saturday'),
         ];
     }
     public function getMonthList()
     {
         $months = array(
-            1 => __('lang.january'),
-            2 => __('lang.february'),
-            3 => __('lang.march'),
-            4 => __('lang.april'),
-            5 => __('lang.may'),
-            6 => __('lang.june'),
-            7 => __('lang.july'),
-            8 => __('lang.august'),
-            9 => __('lang.september'),
-            10 => __('lang.october'),
-            11 => __('lang.november'),
-            12 => __('lang.december')
+            1 => __('english.january'),
+            2 => __('english.february'),
+            3 => __('english.march'),
+            4 => __('english.april'),
+            5 => __('english.may'),
+            6 => __('english.june'),
+            7 => __('english.july'),
+            8 => __('english.august'),
+            9 => __('english.september'),
+            10 => __('english.october'),
+            11 => __('english.november'),
+            12 => __('english.december')
         );
         return $months;
     }
