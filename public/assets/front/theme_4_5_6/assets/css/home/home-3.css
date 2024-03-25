@@ -1,0 +1,44 @@
+/*   
+    * This file contains the styling for the Home Variation Three, this
+    is the file you need to edit to change the look of the
+    template.
+
+******************************************************
+*****************************************************/
+/* -----------------------------------------
+	Hero Banner CSS
+----------------------------------------- */
+.hero-banner_v3 {
+  padding-top: 90px;
+}
+.hero-banner_v3 .shape {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 0;
+  right: 0;
+  background-color: var(--color-primary);
+  background-image: var(--gradient-1);
+  filter: blur(70px);
+  opacity: 0.8;
+  z-index: -1;
+}
+.hero-banner_v3 .shape:nth-child(1) {
+  top: 0;
+  -webkit-margin-start: 0;
+          margin-inline-start: 0;
+  -webkit-margin-end: auto;
+          margin-inline-end: auto;
+}
+.hero-banner_v3 .shape:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+  margin-inline: auto;
+}
+.hero-banner_v3 .shape:nth-child(3) {
+  top: 0;
+  -webkit-margin-start: auto;
+          margin-inline-start: auto;
+  -webkit-margin-end: 0;
+          margin-inline-end: 0;
+}
