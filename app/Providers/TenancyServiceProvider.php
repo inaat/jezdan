@@ -111,7 +111,7 @@ class TenancyServiceProvider extends ServiceProvider
         $this->makeTenancyMiddlewareHighestPriority();
         /* added custom */
         InitializeTenancyByDomainCustomisedMiddleware::$onFail = function ($exception, $request, $next) {
-            return redirect('/'); //can be a custom url it redirects to or you can show a custom error page
+            return redirect()->route('/'); //can be a custom url it redirects to or you can show a custom error page
         };
     }
 
