@@ -358,7 +358,7 @@ public function emptyAdmissionForm()
     }
 
    
-    return view('tenant.tenant.MPDF.empty-admission-form');
+    return view('tenant.MPDF.empty-admission-form');
     
    
 }

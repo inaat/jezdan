@@ -116,7 +116,7 @@ class Util
         if (config('app.env') == 'demo') {
             return null;
         }
-
+        if ($request->hasFile($file_name)) {
         $uploaded_file_name = null;
         if ($request->hasFile($file_name) && $request->file($file_name)->isValid()) {
             //Check if mime type is image
@@ -149,6 +149,8 @@ class Util
         }
         
         return 'storage/tenant'.tenancy()->tenant->id.'/'.$dir_name.'/'.$uploaded_file_name;
+    }
+    return null;
     }
     /**
      * Converts date in System Details format to mysql format

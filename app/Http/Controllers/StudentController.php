@@ -945,7 +945,7 @@ if ($row->total_admission_fee<=0) {
         }
         $pdf =  config('constants.mpdf');
         if ($pdf) {
-            return view('tenant.tenant.MPDF.admission-form')->with(compact('student', 'siblings'));
+            return view('tenant.MPDF.admission-form')->with(compact('student', 'siblings'));
         }
         $pdf_name='admission-form.pdf';
         $snappy = \WPDF::loadview('tenant.students.admission-form', compact('student', 'siblings'));
@@ -964,7 +964,7 @@ if ($row->total_admission_fee<=0) {
         }
 
        
-        return view('tenant.tenant.MPDF.empty-admission-form');
+        return view('tenant.MPDF.empty-admission-form');
         
        
     }
