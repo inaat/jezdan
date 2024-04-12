@@ -258,6 +258,7 @@ Route::prefix('/basic-settings')->group(function () {
   Route::prefix('/tenant')->group(function () {
     Route::get('/', 'Saas\Admin\TenantManageController@index')->name('admin.tenant.index');
     Route::post('/new_tenant_store', 'Saas\Admin\TenantManageController@new_tenant_store')->name('admin.tenant.new_tenant_store');
+    Route::delete('/tenants/{id}', 'Saas\Admin\TenantManageController@deleteTenant')->name('tenants.delete');
 
   });
     // home-page route start

@@ -9,7 +9,12 @@ class TenantDatabaseSeeder extends Seeder
 {
     public function run()
     {
-   
+        $this->call([
+           // \Database\Seeders\CurrenciesTableSeeder::class,
+            //\Database\Seeders\SystemSettingsSeeder::class,
+          //  \Database\Seeders\UsersSeeder::class,
+            \Database\Seeders\RolesSeeder::class
+            ]);
     }
 
 

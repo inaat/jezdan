@@ -1,3 +1,15 @@
+
+
+
+
+
+
+
+
+
+
+
+
 @extends('saas.admin.layout')
 
 
@@ -49,7 +61,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col">
-               @if (count($all_users) == 0)
+               @if (count($all_tenants) == 0)
                 <h3 class="text-center mt-2">{{ __('NO INFORMATION FOUND') . '!' }}</h3>
               @else
                 <div class="table-responsive">
@@ -64,47 +76,29 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($all_users as $user)
+                      @foreach($all_tenants as $tenant)
                             <tr>
-                                <td>{{$user->id}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}
-                                    @if($user->email_verified === 0)
+                                <td>{{$tenant->user->id}}</td>
+                                <td>{{$tenant->user->name}}</td>
+                                <td>{{$tenant->user->email}}
+                                    @if($tenant->user->email_verified === 0)
                                         <i class="text-danger mdi mdi-close-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Email Not Verified')}}"></i>
                                     @else
                                         <i class="text-success mdi mdi-check-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Email  Verified')}}"></i>
                                     @endif
                                 </td>
                                 <td>
-                                {{-- {{ $user->tenant_info-> }} --}}
+                                {{-- {{ $tenant->user->tenant_info-> }} --}}
                                   @php
                                         $local_url = env('CENTRAL_DOMAIN');
                                         $url = tenant_url_with_protocol($local_url);
-                                        $hash_token = hash_hmac('sha512',$user->username,$user->id);
+                                        $hash_token = hash_hmac('sha512',$tenant->user->username,$tenant->user->id);
                                     @endphp
-                                                                        <a class="btn btn-info btn-sm mb-3 mr-1 " href="{{$url.'/token-wise-login/'.$hash_token.'?user_id='.$user->id.''}}" target="_blank" style="text-decoration: none">{{__('Login to User Account')}}</a>
-                                    {{-- <form action="{{ route(route_prefix().'user.email.verify.enable.status') }}" method="post"> --}}
-                                    <form action="" method="post">
-                                        @csrf
-                                        <input type="hidden" value="{{$user->id}}" name="user_id">
-                                        <input type="hidden" value="{{$user->email_verified}}" name="email_verified">
-                                        <button type="submit" class="btn btn-sm mb-2
-
-                                        @if($user->email_verified == 1)
-                                            btn-success
-                                        @else
-                                            btn-danger
-                                        @endif
-                                        ">
-
-                                            @if($user->email_verified == 1)
-                                                {{__('Make Enable Email Verify')}}
-
-                                            @else
-                                                {{__('Make Disable Email Verify')}}
-                                            @endif
-                                        </button>
-                                    </form>
+                               <form action="{{ route('tenants.delete', ['id' => $tenant->id]) }}" method="post">
+    @csrf
+    @method('delete')
+    <button class="btn btn-sm mb-2  btn-danger" type="submit">Delete Tenant</button>
+</form>
 
                                 </td>
                                 </tr>

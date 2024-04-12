@@ -12,14 +12,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 
 class TenantManageController extends Controller
 {
 
     public function index(){
+     // dd(Hash::make('123456789'));
         //dd(env('CENTRAL_DOMAIN'));
-        $all_users = User::latest()->paginate(10);
-        return view('saas.admin.tenant.index',compact('all_users'));
+        $all_tenants=Tenant::with('user')->latest()->paginate(10);
+     //   dd($all_tenants);
+        //$all_users = User::latest()->paginate(10);
+
+        return view('saas.admin.tenant.index',compact('all_tenants'));
     }
 
 
@@ -102,7 +107,13 @@ class TenantManageController extends Controller
            File::makeDirectory($yourPath, 0755, true, true);
        }
        
+       Artisan::call('tenants:seed', [
+        '--tenants' => $subdomain,
+        '--force' => true,
+    ]);
 
+    //exec('cd ' . base_path() . ' && php artisan Customtenants:seed --tenants=' . $name . ' --force');
+   
     // Committing all the actions
     // } catch (\Exception $exception) {
 
@@ -122,4 +133,27 @@ class TenantManageController extends Controller
         // return response()->error(ResponseMessage::success(__('Tenant has been created successfully..!')));
 
     }
+
+    public function deleteTenant(Request $request, $id)
+{
+    // Find the tenant
+    $tenant = Tenant::findOrFail($id);
+    // dd($tenant);
+    // Delete the tenant's data
+    $tenant->delete();
+
+    // Delete tenant-related data from other tables if necessary
+    // For example, if tenants have associated users
+    $tenant->user()->delete();
+
+    // Delete tenant's files if applicable
+    // You may need to adjust this based on your file storage setup
+    //Storage::deleteDirectory('tenants/' . $tenant->id);
+
+    // Drop the tenant's database
+  //  DB::statement("DROP DATABASE IF EXISTS `{$tenant->database_name}`");
+
+    // Optionally, you can redirect the user to a page after deletion
+    return redirect()->route('admin.tenant.index')->with('success', 'Tenant deleted successfully.');
+}
 }
