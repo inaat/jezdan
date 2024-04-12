@@ -92,7 +92,7 @@ class TenantManageController extends Controller
 
      $tenant = Tenant::create(['id' => $subdomain,'tenancy_db_name' => $subdomain]);
      DB::table('tenants')->where('id',$tenant->id)->update(['user_id' => $user->id, 'unique_key' => Hash::make(Str::random(32))]);
-         $tenant->domains()->create(['domain' => $subdomain.'.'.env('CENTRAL_DOMAIN')]);
+         $tenant->domains()->create(['domain' => $subdomain.'.'.'jezdan.co']);
 
        $yourPath = storage_path('tenant' . $subdomain);
        // Check if the directory already exists
