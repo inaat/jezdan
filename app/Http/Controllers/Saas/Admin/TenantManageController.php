@@ -19,7 +19,7 @@ class TenantManageController extends Controller
 
     public function index(){
      // dd(Hash::make('123456789'));
-        //dd(env('CENTRAL_DOMAIN'));
+        ////dd(env('CENTRAL_DOMAIN'));
         $all_tenants=Tenant::with('user')->latest()->paginate(10);
      //   dd($all_tenants);
         //$all_users = User::latest()->paginate(10);
