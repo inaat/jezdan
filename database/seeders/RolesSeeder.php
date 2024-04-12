@@ -13,7 +13,7 @@ class RolesSeeder extends Seeder
      */
     public function run(): void
     {
-        $sql = file_get_contents(database_path('Seeders/school.sql'));
+        $sql = file_get_contents(database_path('seeders/school.sql'));
         DB::unprepared($sql);
 
     
