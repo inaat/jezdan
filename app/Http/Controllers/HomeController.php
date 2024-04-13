@@ -332,7 +332,7 @@ class HomeController extends Controller
              $output['total_transport_dues_this_month']=$total_transport['total_fee_due']+$output['total_transport_progressive_amount'];//+$total_transport_paid_amount;
 
             ////
-            $online=$this->__payment(null, $start_date, $end_date)+1900;
+            $online=$this->__payment(null, $start_date, $end_date);
             $opening_balance=$this->feeTransactionUtil->getAccountOpeningBalance($end, $campus_id,'opening_balance');
             $debit=$this->feeTransactionUtil->getAccountOpeningBalance($end, $campus_id,'debit');
             $deposit=$this->feeTransactionUtil->getAccountOpeningBalance($end, $campus_id,'deposit');

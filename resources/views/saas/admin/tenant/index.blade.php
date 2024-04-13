@@ -72,6 +72,7 @@
    <th>{{__('ID')}}</th>
                         <th>{{__('Name')}}</th>
                         <th>{{__('Email')}}</th>
+                        <th>{{__('Domain')}}</th>
                         <th>{{__('Action')}}</th>
                       </tr>
                     </thead>
@@ -81,6 +82,7 @@
                                 <td>{{$tenant->user->id}}</td>
                                 <td>{{$tenant->user->name}}</td>
                                 <td>{{$tenant->user->email}}
+                                <td>{{$tenant->domain->domain}}
                                     @if($tenant->user->email_verified === 0)
                                         <i class="text-danger mdi mdi-close-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Email Not Verified')}}"></i>
                                     @else

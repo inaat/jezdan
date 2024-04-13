@@ -56,7 +56,7 @@ class BackUpController extends Controller
         $cron_job_command = $this->commonUtil->getCronJobCommand();
         $backup_clean_cron_job_command = $this->commonUtil->getBackupCleanCronJobCommand();
 
-        return view("backup.index")
+        return view("tenant.backup.index")
             ->with(compact('backups', 'cron_job_command', 'backup_clean_cron_job_command'));
     }
 
@@ -117,21 +117,21 @@ class BackUpController extends Controller
         }
 
         $file = config('backup.backup.name') . '/' . $file_name;
-        $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
-        if ($disk->exists($file)) {
-            $fs = Storage::disk(config('backup.backup.destination.disks')[0])->getDriver();
-            $stream = $fs->readStream($file);
-            return \Response::stream(function () use ($stream) {
-                fpassthru($stream);
-            }, 200, [
-                "Content-Type" => $fs->getMimetype($file),
-                "Content-Length" => $fs->getSize($file),
-                "Content-disposition" => "attachment; filename=\"" . basename($file) . "\"",
-            ]);
-        } else {
-            abort(404, "The backup file doesn't exist.");
-        }
-    }
+       // $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+    //     if ($disk->exists($file)) {
+    //         $fs = Storage::disk(config('backup.backup.destination.disks')[0])->getDriver();
+    //         $stream = $fs->readStream($file);
+    //         return \Response::stream(function () use ($stream) {
+    //             fpassthru($stream);
+    //         }, 200, [
+    //             "Content-Type" => $fs->getMimetype($file),
+    //             "Content-Length" => $fs->getSize($file),
+    //             "Content-disposition" => "attachment; filename=\"" . basename($file) . "\"",
+    //         ]);
+    //     } else {
+    //         abort(404, "The backup file doesn't exist.");
+    //     }
+    // }
 
     /**
      * Deletes a backup file.
