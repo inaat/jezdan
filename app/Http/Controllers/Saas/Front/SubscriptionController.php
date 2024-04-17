@@ -9,6 +9,17 @@ use App\Models\Package;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Validator;
 use Paytabscom\Laravel_paytabs\Facades\paypage;
+use App\Models\User;
+use App\Models\Tenant;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\ContactFormMail;
+use App\Notifications\SendMessageToEndUser;
+use App\Mail\TestEmail;
 class SubscriptionController extends Controller
 {
     /**
@@ -95,7 +106,10 @@ class SubscriptionController extends Controller
 
     public function finalCheckout(Request $request)
     {
-        //dd($request->input());
+       
+        $package = Package::active()->find($request->input('package_id'));
+       // dd($request->input());
+        if($package->price>0){
          // Retrieve input data from the request
     $inputData = $request->input();
         $pay= paypage::sendPaymentCode('all')
@@ -120,7 +134,58 @@ class SubscriptionController extends Controller
         ->sendURLs('https://jezdan.test/','https://explainerkhan.com/api/payment/callback')
         ->sendLanguage('en')
         ->create_pay_page();
-    return $pay;
+         return $pay;
+        }else{
+           $user = $this->createUserWithTenant($request);
+      //      Mail::to('info@sirms.edu.pk')->send(new ContactFormMail($data));
+            //Mail::to('inayatullahkks@gmail.com')->send(new SendMessageToEndUser($request->input('first_name')));
+        }
+
+    }
+
+
+    function createUserWithTenant($request)
+    {
+        $user = User::create([
+            'name' => $request->first_name . ' '. $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'username' => Str::slug($request->username),
+            'has_subdomain' => 1,
+            'country' => $request->country,
+            'city' => $request->city,
+            'mobile' => $request->phone,
+            'state' => $request->state,
+            'address' => $request->address,
+            'school_name' => $request->name,
+        ]);
+    
+        $subdomain = $request->username;
+    
+        $tenant = Tenant::create(['id' => $subdomain, 'tenancy_db_name' => $subdomain]);
+        DB::table('tenants')->where('id', $tenant->id)->update(['user_id' => $user->id, 'unique_key' => Hash::make(Str::random(32))]);
+        $tenant->domains()->create(['domain' => $subdomain . '.' . 'jezdan.co']);
+    
+        $yourPath = storage_path('tenant' . $subdomain);
+        // Check if the directory already exists
+        if (!File::exists($yourPath)) {
+            // If not, create it
+            File::makeDirectory($yourPath, 0755, true, true);
+        }
+        $yourPath = storage_path('tenant' . $subdomain . '/app/pdf');
+    
+        if (!File::exists($yourPath)) {
+            // If not, create it
+            File::makeDirectory($yourPath, 0755, true, true);
+        }
+    
+        Artisan::call('tenants:seed', [
+            '--tenants' => $subdomain,
+            '--force' => true,
+        ]);
+    
+        // You might return any relevant data here, depending on your requirements
+        return $user;
     }
 
     /**

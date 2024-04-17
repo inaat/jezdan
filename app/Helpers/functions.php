@@ -70,7 +70,7 @@ if (!function_exists('createSlug')) {
 if (!function_exists('replaceBaseUrl')) {
   function replaceBaseUrl($html, $type)
   {
-    dd(55);
+    
     $startDelimiter = 'src=""';
     if ($type == 'summernote') {
       $endDelimiter = '/assets/saas/admin/img/summernote';
