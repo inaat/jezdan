@@ -17,9 +17,9 @@
 @endif
 @endsection
 @php
-    $position = $currencyInfo->base_currency_symbol_position;
-    $symbol = $currencyInfo->base_currency_symbol;
-  @endphp
+$position = $currencyInfo->base_currency_symbol_position;
+$symbol = $currencyInfo->base_currency_symbol;
+@endphp
 @section('content')
 @includeIf('saas.front.partials.breadcrumb', ['breadcrumb' => $bgImg->breadcrumb, 'title' =>__('Checkout')])
 <section class="checkout-area ptb-90">
@@ -31,7 +31,7 @@
                         <div class="title mb-30">
                             <h3>Billing Details</h3>
                         </div>
-@csrf                        <div class="row">
+                        @csrf <div class="row">
                             <input type="hidden" name="username" value="{{ $step1['username'] }}">
                             <input type="hidden" name="password" value="{{ $step1['password'] }}">
                             <input type="hidden" name="email" value="{{ $step1['email'] }}">
@@ -78,23 +78,45 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group mb-30">
-                                    <label for="city">City</label>
-                                    <input id="city" type="text" class="form-control" name="city" placeholder="City" value="">
-                                </div>
-                            </div>
 
                             <div class="col-lg-6">
                                 <div class="form-group mb-30">
-                                    <label for="district">State</label>
-                                    <input id="district" type="text" class="form-control" name="district" placeholder="State" value="">
+                                    <label for="country">Country*</label>
+                                    <br>
+
+                                    <select class="form-group mb-30 form-control select2" id="country_id" name="country_id" required>
+                                        <option value="">-- Select Country --</option>
+                                        @foreach ($countries as $country )
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+
+                                        @endforeach
+
+                                    </select>
+
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-group mb-30">
-                                    <label for="country">Country*</label>
-                                    <input id="country" type="text" class="form-control" name="country" placeholder="Country" value="" required="">
+                                    <label for="district">State</label>
+                                    <select class="form-group mb-30 form-control select2" id="state_id" name="state_id" required>
+
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-30">
+                                    <label for="city">City</label>
+                                    <select class="form-group mb-30 form-control select2" id="city_id" name="city_id" required>
+
+
+                                    </select>
+                                </div>
+                            </div>
+    <div class="col-lg-6">
+                                <div class="form-group mb-30">
+                                    <label for="zip_code">Zip Code</label>
+                                    <input id="zip_code" type="text" class="form-control" name="zip_code" placeholder="Zip Code" value="">
                                 </div>
                             </div>
                         </div>
@@ -123,15 +145,15 @@
                                         </li>
                                         <li class="border-0">
                                             <span>Total</span>
-                                            <span class="price" >
-                                            {{ $currencyInfo->base_currency_symbol_position == 'left' ? $currencyInfo->base_currency_symbol : '' }}{{ number_format($package->price, 0) }}{{ $currencyInfo->base_currency_symbol_position == 'right' ? $currencyInfo->base_currency_symbol : '' }}
-                                             
+                                            <span class="price">
+                                                {{ $currencyInfo->base_currency_symbol_position == 'left' ? $currencyInfo->base_currency_symbol : '' }}{{ number_format($package->price, 0) }}{{ $currencyInfo->base_currency_symbol_position == 'right' ? $currencyInfo->base_currency_symbol : '' }}
+
                                             </span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                           
+
 
                             <div class="order-payment form-block">
                                 <div class="title">
@@ -143,7 +165,7 @@
                                         <option value="paytabs">
                                             Paytabs
                                         </option>
-                                        
+
                                     </select>
                                     <div class="nice-select olima_select" tabindex="0"><span class="current">Choose an option</span>
                                         <ul class="list">
@@ -158,20 +180,20 @@
                             </div>
                         </div>
 
-                  
+
 
 
 
                         <div>
-                        
 
-                        <div class="text-center mt-4">
-                            <button form="my-checkout-form" id="confirmBtn" class="btn primary-btn w-100" type="submit">Confirm
-                            </button>
+
+                            <div class="text-center mt-4">
+                                <button form="my-checkout-form" id="confirmBtn" class="btn primary-btn w-100" type="submit">Confirm
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </form>
     </div>
 </section>

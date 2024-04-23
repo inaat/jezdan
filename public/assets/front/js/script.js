@@ -199,7 +199,7 @@ function popupAnnouncement($this) {
     });
 
     // Nice Select
-    $("select").niceSelect();
+    $("olima_select").niceSelect();
 
     // Magic Cursor
     var cursor = function() {

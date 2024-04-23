@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-     // \Laravel\Passport\Passport::ignoreMigrations();
+     //\Laravel\Passport\Passport::ignoreMigrations();
 
     }
 

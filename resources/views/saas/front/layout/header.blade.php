@@ -123,7 +123,7 @@
                     <div class="item">
                         <div class="language">
                          <form action="{{ route('change_language') }}" method="GET">
-            <select name="lang_code" onchange="this.form.submit()">
+            <select class="olima_select  nice-select"name="lang_code" onchange="this.form.submit()">
               @foreach ($allLanguageInfos as $languageInfo)
                 <option value="{{ $languageInfo->code }}" {{ $languageInfo->code == $currentLanguageInfo->code ? 'selected' : '' }}>
                   {{ $languageInfo->name }}

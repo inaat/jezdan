@@ -319,7 +319,7 @@ $(function () {
   });
 
   //===== niceSelect js
-  $('select').niceSelect();
+  $('olima_select').niceSelect();
 
   //===== uploaded image preview
   if ($('.upload').length > 0) {

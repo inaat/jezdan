@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
+        $this->call([
+                    \Database\Seeders\CurrenciesTableSeeder::class
+        ]);
+
     }
 
 }

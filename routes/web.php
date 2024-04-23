@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\DB;
 |--------------------------------------------------------------------------
 */
 use App\Http\Controllers\Saas\Front\HomeController;
+use App\Http\Controllers\Saas\Front\GlobalController;
+Route::get('/get_states', 'Saas\Front\GlobalController@getStates');
+Route::get('/get_cities', 'Saas\Front\GlobalController@getCities');
 
 Route::get('/check/{username}/username', [HomeController::class, 'checkUsername']);
 

@@ -266,8 +266,9 @@ class AccountController extends Controller
                                 ])
                              ->groupBy('account_transactions.id')
                              ->orderBy('account_transactions.operation_date', 'asc');
-                        
-            if (!empty(request()->input('type'))) {
+                       
+                            
+            if (!empty(request()->input('type')) && request()->input('type') !='All' ) {
                 $accounts->where('account_transactions.type', request()->input('type'));
             }
 
@@ -276,6 +277,7 @@ class AccountController extends Controller
                 $accounts->whereDate('operation_date', '>=', $start_date)
                         ->whereDate('operation_date', '<=', $end_date);
             }
+            
             return DataTables::of($accounts)
                             ->addColumn('debit', function ($row) {
                                 if ($row->type == 'debit') {

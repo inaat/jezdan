@@ -46,11 +46,38 @@
     <link rel="stylesheet"  href="{{ asset('assets/front/css/responsive.css')}}">
     <link rel="stylesheet"  href="{{ asset('assets/front/css/cookie-alert.css')}}">
 
+<link rel="stylesheet" href="{{asset('assets/saas/admin/css/select2.min.css')}}">
 
         <!-- base color change -->
 
     
             <style>
+            /* select2 CSS */
+.select2-container--default .select2-selection--single {
+  height: 45px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 42px;
+  padding-left: 20px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  border-color: #fff transparent transparent transparent;
+  margin-top: 6px;
+}
+.select2-container {
+  width: 100% !important;
+}
+.dis-none {
+  display: none;
+}
+.min-230 {
+  min-width: 230px;
+}
+.ws-normal {
+  white-space: normal;
+}
             .go-top {
                 right: auto;
                 left: 30px;
@@ -117,6 +144,7 @@
 <script src="{{ asset('assets/front/js/whatsapp.min.js')}}"></script>
 <!-- Main script JS -->
 <script src="{{ asset('assets/front/js/script.js')}}"></script>
+<script src="{{asset('assets/saas/admin/js/select2.min.js')}}"></script>
 
 @if (session()->has('success'))
   <script>
@@ -141,10 +169,49 @@
 <script>
     "use strict";
     var rtl = 0;
+    $("select:not(.nice-select) option")
+
 </script>
 
 <script type="text/javascript">
     base_path = "{{url('/')}}";
+      $(document).ready(function() {
+    $('.select2').select2();
+    $(document).on('change', '#country_id', function() {
+       var country_id = $("#country_id").val();
+    $.ajax({
+        method: "GET",
+        url: "/get_states",
+        dataType: "html",
+        data: {
+            country_id: country_id,
+        },
+        success: function (result) {
+            if (result) {
+                $("#state_id").html(result);
+            }
+        },
+    });
+}); 
+    $(document).on('change', '#state_id', function() {
+       var country_id = $("#country_id").val();
+       var state_id = $("#state_id").val();
+    $.ajax({
+        method: "GET",
+        url: "/get_cities",
+        dataType: "html",
+        data: {
+            country_id: country_id,
+            state_id: state_id,
+        },
+        success: function (result) {
+            if (result) {
+                $("#city_id").html(result);
+            }
+        },
+    });
+}); 
+  });
     //used for push notification
 </script>
 

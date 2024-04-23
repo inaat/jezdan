@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\GlobalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+
+
 });
+Route::post('/payment/callback', function (Request $request) {
+    // Handle callback logic here
+    \Log::emergency($request->input('cart_id'));
+    dd(555);
+ 
+});
+Route::get('/payTab/successful', 'App\Http\Controllers\Api\GlobalController@payTabSuccessful');
+Route::post('/payment/successful', 'App\Http\Controllers\Api\GlobalController@payTabSuccessful');
+Route::post('/PayTab/callback', 'App\Http\Controllers\Api\GlobalController@AfterPayTabSuccessfulCreateTenant');
+
+// Route::post('/payment/successful', function (Request $request) {
+//     // Handle callback logic here
+//     \Log::emergency($request);
+//     dd(555);
+ 
+// });
