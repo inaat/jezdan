@@ -79,23 +79,33 @@
                     <tbody>
                       @foreach($all_tenants as $tenant)
                             <tr>
+                               @if(!empty($tenant->user))
                                 <td>{{$tenant->user->id}}</td>
                                 <td>{{$tenant->user->name}}</td>
                                 <td>{{$tenant->user->email}}
+                                 @else
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                @endif
                                 <td>{{$tenant->domain->domain}}
+                                 @if(!empty($tenant->user))
                                     @if($tenant->user->email_verified === 0)
                                         <i class="text-danger mdi mdi-close-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Email Not Verified')}}"></i>
                                     @else
                                         <i class="text-success mdi mdi-check-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Email  Verified')}}"></i>
                                     @endif
+                                      @else
+                                      <td></td>
+                                    @endif
                                 </td>
                                 <td>
                                 {{-- {{ $tenant->user->tenant_info-> }} --}}
-                                  @php
+                                  {{-- @php
                                         $local_url = env('CENTRAL_DOMAIN');
                                         $url = tenant_url_with_protocol($local_url);
                                         $hash_token = hash_hmac('sha512',$tenant->user->username,$tenant->user->id);
-                                    @endphp
+                                    @endphp --}}
                                <form action="{{ route('tenants.delete', ['id' => $tenant->id]) }}" method="post">
     @csrf
     @method('delete')
