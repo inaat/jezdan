@@ -26,7 +26,7 @@ Route::post('/payment/callback', function (Request $request) {
     dd(555);
  
 });
-Route::get('/payTab/successful', 'App\Http\Controllers\Api\GlobalController@payTabSuccessful');
+// Route::get('/payTab/successful', 'App\Http\Controllers\Api\GlobalController@payTabSuccessful');
 Route::post('/payment/successful', 'App\Http\Controllers\Api\GlobalController@payTabSuccessful');
 Route::post('/PayTab/callback', 'App\Http\Controllers\Api\GlobalController@AfterPayTabSuccessfulCreateTenant');
 

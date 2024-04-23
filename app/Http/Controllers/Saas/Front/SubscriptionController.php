@@ -162,7 +162,7 @@ $clientIP = request()->ip();
 
         ->sendCustomerDetails($request->first_name . ' '. $request->last_name, $request->email, $request->phone, $request->address, $city->name, $state->iso2, $country->iso2, $request->zip_code,$clientIP)
         ->sendShippingDetails($request->first_name . ' '. $request->last_name, $request->email, $request->phone, $request->address, $city->name, $state->iso2, $country->iso2, $request->zip_code,$clientIP)
-        ->sendURLs('http://jezdan.co/api/payment/successful','http://jezdan.co/api//PayTab/callback')
+        ->sendURLs(null,'http://jezdan.co/api//PayTab/callback')
         ->sendLanguage('en')
         ->create_pay_page();
          return $pay;

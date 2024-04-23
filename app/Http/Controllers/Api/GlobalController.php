@@ -158,7 +158,7 @@ class GlobalController extends Controller
     }
     function payTabSuccessful(Request $request)
     {
-        dd($request);
+        //dd($request);
     return redirect('/');
         // dd($request);
         // return view('saas.payment_successful');
