@@ -131,7 +131,7 @@ class Subscription extends Model
                             ->select(DB::raw("MAX(end_date) as end_date"))
                             ->first();
 
-        if (empty($subscription->end_date)) {
+        if (empty($subscription)) {
             return $date_today;
         } else {
             $end_date = $subscription->end_date->addDay();
