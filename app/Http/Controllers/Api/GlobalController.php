@@ -198,7 +198,7 @@ class GlobalController extends Controller
             '--tenants' => $subdomain,
             '--force' => true,
         ]);
-        \Illuminate\Support\Facades\Mail::to('enayatullahkks@gmail.com')->send(new SendMessageToSubscriber($subscription->created_user,$tenant));
+        \Illuminate\Support\Facades\Mail::to($subscription->created_user->email)->send(new SendMessageToSubscriber($subscription->created_user,$tenant));
 
         return true;
     }
