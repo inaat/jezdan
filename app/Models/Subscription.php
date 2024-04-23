@@ -126,21 +126,21 @@ class Subscription extends Model
     {
         $date_today = Carbon::today();
 
-        $subscription = Subscription::
-                        approved()
-                            ->select(DB::raw("MAX(end_date) as end_date"))
-                            ->first();
+        // $subscription = Subscription::
+        //                 approved()
+        //                     ->select(DB::raw("MAX(end_date) as end_date"))
+        //                     ->first();
 
-        if (empty($subscription)) {
+       // if (empty($subscription)) {
             return $date_today;
-        } else {
-            $end_date = $subscription->end_date->addDay();
-            if ($date_today->lte($end_date)) {
-                return $end_date;
-            } else {
-                return $date_today;
-            }
-        }
+        // } else {
+        //     $end_date = $subscription->end_date->addDay();
+        //     if ($date_today->lte($end_date)) {
+        //         return $end_date;
+        //     } else {
+        //         return $date_today;
+        //     }
+        // }
     }
 
     /**
