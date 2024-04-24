@@ -200,7 +200,7 @@ class GlobalController extends Controller
     //     ]);
         \Log::emergency('55555');
 
-        \Log::emergency(\Illuminate\Support\Facades\Mail::to($subscription->created_user->email)->send(new SendMessageToSubscriber($subscription->created_user,$tenant)));
+        dd(\Illuminate\Support\Facades\Mail::to($subscription->created_user->email)->send(new SendMessageToSubscriber($subscription->created_user,$tenant)));
 
         return true;
     }
