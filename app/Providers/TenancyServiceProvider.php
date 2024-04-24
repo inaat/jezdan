@@ -109,7 +109,7 @@ class TenancyServiceProvider extends ServiceProvider
     {
         $this->bootEvents();
         $this->mapRoutes();
-
+        $this->mapApiRoutes();
         $this->makeTenancyMiddlewareHighestPriority();
         /* added custom */
         // InitializeTenancyByDomainCustomisedMiddleware::$onFail = function ($exception, $request, $next) {
@@ -282,7 +282,16 @@ class TenancyServiceProvider extends ServiceProvider
                 ->group(base_path('routes/tenant.php'));
         }
     }
-
+    protected function mapApiRoutes()
+{
+    if (file_exists(base_path('routes/api.php'))) {
+        Route::prefix('api')
+                ->middleware('api')
+                ->namespace(static::$controllerNamespace)
+                ->group(base_path('routes/api.php'));
+    }
+   
+}
     protected function makeTenancyMiddlewareHighestPriority()
     {
         $tenancyMiddleware = [

@@ -464,7 +464,7 @@ class Util
         //     }
         // }
 
-        $payment_types = ['cash' => __('english.cash'), 'card' => __('english.card'), 'cheque' => __('english.cheque'), 'bank_transfer' => __('english.bank_transfer'), 'advance_pay' => __('english.advance_pay'), 'other' => __('english.other')];
+        $payment_types = ['cash' => __('english.cash'), 'payTabs' => __('english.payTabs'), 'card' => __('english.card'), 'cheque' => __('english.cheque'), 'bank_transfer' => __('english.bank_transfer'), 'advance_pay' => __('english.advance_pay'), 'other' => __('english.other')];
 
         // $payment_types['custom_pay_1'] = !empty($custom_labels['payments']['custom_pay_1']) ? $custom_labels['payments']['custom_pay_1'] : __('english.custom_payment', ['number' => 1]);
         // $payment_types['custom_pay_2'] = !empty($custom_labels['payments']['custom_pay_2']) ? $custom_labels['payments']['custom_pay_2'] : __('english.custom_payment', ['number' => 2]);

@@ -26,4 +26,6 @@ Route::post('/fee_remainder_send', 'NotificationController@FeeRemainderPost');
 Route::get('/media', 'NotificationController@mediaCreate');
 Route::post('/media_send', 'NotificationController@mediaPost');
 
+Route::get('guardian/student/get-transaction/{student_id}', 'GuardianLayout\GuardianDashboardController@getTransaction');
+Route::get('guardian/student/fee-pay-with-payTabs/{student_id}/{amount}', 'GuardianLayout\GuardianDashboardController@feePayWithPayTab');
 

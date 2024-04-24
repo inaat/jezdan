@@ -219,6 +219,94 @@ class FeeTransactionUtil extends Util
             return $parent_payment;
         }
     }
+    public function OnlinePayStudent($student_id,$account_id,$data, $format_data = true)
+    {
+        
+        $system_settings_id = 1;
+        $inputs = $data;
+        
+
+        $payment_types = $this->payment_types();
+        $inputs['session_id']=$this->getActiveSession();
+
+        if (!array_key_exists($inputs['method'], $payment_types)) {
+            throw new \Exception("Payment method not found");
+        }
+        $inputs['paid_on'] = \Carbon::now()->toDateTimeString();
+      
+
+        $inputs['created_by'] = 1;
+        $inputs['payment_for'] = $student_id;
+        $inputs['system_settings_id'] = $system_settings_id;
+        $student = Student::where('system_settings_id', $system_settings_id)
+                        ->findOrFail($student_id);
+        $inputs['campus_id'] = $student->campus_id;
+        $due_payment_type = 'fee';
+        $prefix_type = 'fee_payment';
+        $ref_count = $this->setAndGetReferenceCount($prefix_type, false, true);
+        //Generate reference number
+        $payment_ref_no = $this->generateReferenceNumber($prefix_type, $ref_count, $system_settings_id);
+
+        $inputs['payment_ref_no'] = $payment_ref_no;
+
+        $inputs['account_id'] = $account_id;
+        
+
+        //Upload documents if added
+        $inputs['document'] = null;
+        $types = ['opening_balance','transport_fee','admission_fee', 'fee','other_fee'];
+        $due_transactions = FeeTransaction::where('student_id', $student->id)
+                                ->whereIn('type', $types)
+                                ->where('payment_status', '!=', 'paid')
+                                ->orderBy('transaction_date', 'asc')
+                                ->get();
+        if ($due_transactions->count()) {
+            if ($inputs['discount_amount']>0) {
+                $discount_amount=$this->num_uf($inputs['discount_amount']);
+                foreach ($due_transactions as $transaction) {
+                    if ($discount_amount == 0) {
+                        break;
+                    } else {
+                        $up=FeeTransaction::find($transaction->id);
+
+                        if ($up->final_total>=$discount_amount) {
+                            $up->final_total=$transaction->final_total-$discount_amount;
+                            $up->discount_type='fixed';
+                            $up->discount_amount=$discount_amount;
+                            $up->save();
+                            $discount_amount=$discount_amount-$up->discount_amount;
+                        } else {
+                        //     $before_discount_total=$discount;
+                        //     $discount_amount=$discount_amount-$up->final_total;
+                        //     $up->final_total=($before_discount_total-$discount_amount )-$up->final_total;
+                        //     $up->discount_type='fixed';
+                        //     $up->discount_amount=$before_discount_total-$discount_amount;
+                        //     $up->save();
+                            $discount_amount-=$up->final_total;
+                            $up->discount_amount=$up->final_total;
+                            $up->final_total=0;
+                            $up->save();
+                        }
+                    }
+                }
+            }
+
+
+
+            $parent_payment = FeeTransactionPayment::create($inputs);
+            $inputs['transaction_type'] = $due_payment_type;
+            event(new FeeTransactionPaymentAdded($parent_payment, $inputs));
+
+            //Distribute above payment among unpaid transactions
+            $excess_amount = $this->payAtOnce($parent_payment, $due_payment_type);
+            //Update excess amount
+            // if (!empty($excess_amount)) {
+        //     $this->updatestudentBalance($student, $excess_amount);
+            // }
+
+            return $parent_payment;
+        }
+    }
     /**
      * Pay student due at once
      *

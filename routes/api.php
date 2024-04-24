@@ -2,8 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\GlobalController;
 
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+/*
+/*
+|------------
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +33,13 @@ Route::post('/payment/callback', function (Request $request) {
 // Route::post('/payment/successful', 'App\Http\Controllers\Api\GlobalController@payTabSuccessful');
 Route::post('/PayTab/callback', 'App\Http\Controllers\Api\GlobalController@AfterPayTabSuccessfulCreateTenant');
 
+Route::middleware([
+    'api',
+    \App\Http\Middleware\Tenant\InitializeTenancyByDomainCustomisedMiddleware::class,
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+Route::post('/PayTab/fee/callback', 'App\Http\Controllers\Api\GlobalController@FeePayTabSuccessful');
+});
 // Route::post('/payment/successful', function (Request $request) {
 //     // Handle callback logic here
 //     \Log::emergency($request);

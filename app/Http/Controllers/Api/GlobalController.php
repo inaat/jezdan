@@ -17,10 +17,26 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
+use App\Utils\NotificationUtil;
+use App\Utils\FeeTransactionUtil;
+use App\Utils\StudentUtil;
 class GlobalController extends Controller
 {
+    protected $feeTransactionUtil;
+    protected $notificationUtil;
+    protected $studentUtil;
 
+    /**
+    * Constructor
+    *
+    * @return void
+    */
+    public function __construct(FeeTransactionUtil $feeTransactionUtil, NotificationUtil $notificationUtil, StudentUtil $studentUtil)
+    {
+        $this->feeTransactionUtil = $feeTransactionUtil;
+        $this->notificationUtil= $notificationUtil;
+        $this->studentUtil= $studentUtil;
+    }
     public function get_campus()
     {
 
@@ -203,4 +219,47 @@ class GlobalController extends Controller
 
         return true;
     }
+    function FeePayTabSuccessful(Request $request)
+    {
+        $student_id = $request->input('cart_id');
+        //dd(444);
+        try {
+          DB::beginTransaction();
+          $inputData = $request->input();
+          
+   
+    $data =[
+     
+        "amount" => $request->input('cart_amount'),
+        "method" => "payTabs",
+        "discount_amount" => "00",
+        "note" => json_encode($inputData),
+        "card_number" => null,
+        "card_holder_name" => null,
+        "card_transaction_number" => null,
+        "card_type" => "credit",
+        "card_month" => null,
+        "card_year" => null,
+        "card_security" => null,
+        "cheque_number" => null,
+        "bank_account_number" => null,
+    ];
+            $parent_payment=$this->feeTransactionUtil->OnlinePayStudent($student_id,1,$data);
+
+            DB::commit();
+    
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
+            
+            $output = ['success' => false,
+                          'msg' => "File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage()
+                      ];
+        }
+
+        //\Illuminate\Support\Facades\Mail::to($subscription->created_user->email)->send(new SendMessageToSubscriber($subscription->created_user,$tenant));
+
+        return true;
+    }
+    
 }

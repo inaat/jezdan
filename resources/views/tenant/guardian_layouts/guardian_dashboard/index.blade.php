@@ -60,6 +60,9 @@
                                             <h6 class="mb-0">@lang('english.gender')</h6>
                                             <span class="text-secondary">{{ ucwords($data->students->gender) }}</span>
                                         </li>
+                                        <li class="list-group-item d-flex justify-content-center align-items-center flex-wrap">
+                                              <a href="{{ action('GuardianLayout\GuardianDashboardController@getTransaction',$data->students->id) }}" class="btn btn-sm btn-info " ><i class="fas fa-money-bill-alt"></i> Fees </a>
+                                        </li>
 
                                     </ul>
                                 </div>
