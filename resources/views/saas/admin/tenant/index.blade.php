@@ -88,7 +88,11 @@
                                       <td></td>
                                       <td></td>
                                 @endif
+                                 @if(!empty($tenant->domain))
                                 <td>{{$tenant->domain->domain}}
+                                @else
+                                <td>
+                                @endif
                                  @if(!empty($tenant->user))
                                     @if($tenant->user->email_verified === 0)
                                         <i class="text-danger mdi mdi-close-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Email Not Verified')}}"></i>
@@ -96,7 +100,7 @@
                                         <i class="text-success mdi mdi-check-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Email  Verified')}}"></i>
                                     @endif
                                       @else
-                                      <td></td>
+                                      
                                     @endif
                                 </td>
                                 <td>
