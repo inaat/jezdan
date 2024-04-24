@@ -175,32 +175,31 @@ class GlobalController extends Controller
         $subscription->package_details=json_encode($inputData);
         $subdomain = $subscription->created_user->username;
         $subscription->save();
-        $tenant = Tenant::where('id',$subdomain)->first();
+        //$tenant = Tenant::where('id',$subdomain)->first();
         
-    //    $tenant = Tenant::create(['id' => $subdomain, 'tenancy_db_name' => $subdomain]);
-    //     DB::table('tenants')->where('id', $tenant->id)->update(['user_id' => $subscription->created_user->id, 'unique_key' => Hash::make(Str::random(32))]);
-    //     $tenant->domains()->create(['domain' => $subdomain . '.' . 'jezdan.co']);
+       $tenant = Tenant::create(['id' => $subdomain, 'tenancy_db_name' => $subdomain]);
+        DB::table('tenants')->where('id', $tenant->id)->update(['user_id' => $subscription->created_user->id, 'unique_key' => Hash::make(Str::random(32))]);
+        $tenant->domains()->create(['domain' => $subdomain . '.' . 'jezdan.co']);
     
-    //     $yourPath = storage_path('tenant' . $subdomain);
-    //     // Check if the directory already exists
-    //     if (!File::exists($yourPath)) {
-    //         // If not, create it
-    //         File::makeDirectory($yourPath, 0755, true, true);
-    //     }
-    //     $yourPath = storage_path('tenant' . $subdomain . '/app/pdf');
+        $yourPath = storage_path('tenant' . $subdomain);
+        // Check if the directory already exists
+        if (!File::exists($yourPath)) {
+            // If not, create it
+            File::makeDirectory($yourPath, 0755, true, true);
+        }
+        $yourPath = storage_path('tenant' . $subdomain . '/app/pdf');
     
-    //     if (!File::exists($yourPath)) {
-    //         // If not, create it
-    //         File::makeDirectory($yourPath, 0755, true, true);
-    //     }
+        if (!File::exists($yourPath)) {
+            // If not, create it
+            File::makeDirectory($yourPath, 0755, true, true);
+        }
     
-    //     Artisan::call('tenants:seed', [
-    //         '--tenants' => $subdomain,
-    //         '--force' => true,
-    //     ]);
-        \Log::emergency('55555');
+        Artisan::call('tenants:seed', [
+            '--tenants' => $subdomain,
+            '--force' => true,
+        ]);
 
-        dd(\Illuminate\Support\Facades\Mail::to($subscription->created_user->email)->send(new SendMessageToSubscriber($subscription->created_user,$tenant)));
+        \Illuminate\Support\Facades\Mail::to($subscription->created_user->email)->send(new SendMessageToSubscriber($subscription->created_user,$tenant));
 
         return true;
     }
