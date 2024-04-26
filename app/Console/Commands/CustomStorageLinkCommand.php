@@ -37,7 +37,7 @@ class CustomStorageLinkCommand extends Command
         foreach ($this->links() as $link => $target) {
             if (file_exists($link) && ! $this->isRemovableSymlink($link, $this->option('force'))) {
                 $this->components->error("The [$link] link already exists.");
-                continue;
+             
                 $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
 
                 // Change directory to the parent directory of the storage folder
@@ -50,9 +50,11 @@ class CustomStorageLinkCommand extends Command
                 // Remove the storage folder recursively
                 $removeCommand = $isWindows ? 'rmdir /s /q ' : 'rm -rf ';
                 exec($removeCommand . $storageFolderPath);
+
               Artisan::call('storage:link', [
                 
               ]);
+            continue;
             }
 
             if (is_link($link)) {
