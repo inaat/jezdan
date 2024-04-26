@@ -96,7 +96,7 @@ class TenantManageController extends Controller
        $yourPath = storage_path('tenant/' . 'tenant'.$subdomain);
        // Check if the directory already exists
        if (!File::exists($yourPath)) {
-           // If not, create it
+           // If not, create it  ..
            File::makeDirectory($yourPath, 0755, true, true);
        }
        $yourPath = storage_path('tenant/' . 'tenant'.$subdomain);
