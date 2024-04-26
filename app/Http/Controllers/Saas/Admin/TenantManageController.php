@@ -107,6 +107,9 @@ class TenantManageController extends Controller
        }
 
        
+       Artisan::call('custom-storage:link', [
+                
+       ]);
        
        Artisan::call('tenants:seed', [
         '--tenants' => $subdomain,
