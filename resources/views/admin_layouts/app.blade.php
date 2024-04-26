@@ -13,7 +13,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ url(session()->get('system_details.org_favicon', ''))}}" type="image/png" />
+    <link rel="icon" href="{{ url(session()->get('system_details.org_favicon', '')) }}" type="image/png" />
     <link rel="stylesheet" href="{{url('tenant/css/fontawesome-free-6.0.0-web/css/all.min.css')}}">
     <!--plugins-->
 
