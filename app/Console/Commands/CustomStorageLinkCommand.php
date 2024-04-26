@@ -77,7 +77,7 @@ class CustomStorageLinkCommand extends Command
     protected function links()
     {
         return 
-               [public_path('storage/tenant/tenantpak') => storage_path('app/public/storage')];
+               [public_path('storage') => storage_path('app/public/storage')];
     }
 
     /**
