@@ -255,13 +255,13 @@ $clientIP = request()->ip();
         DB::table('tenants')->where('id', $tenant->id)->update(['user_id' => $user->id, 'unique_key' => Hash::make(Str::random(32))]);
         $tenant->domains()->create(['domain' => $subdomain . '.' . 'jezdan.co']);
     
-        $yourPath = storage_path('tenant/' . 'tenant'.$subdomain);
+        $yourPath = storage_path('tenant'.$subdomain);
         // Check if the directory already exists
         if (!File::exists($yourPath)) {
             // If not, create it
             File::makeDirectory($yourPath, 0755, true, true);
         }
-        $yourPath = storage_path('tenant/' . 'tenant'.$subdomain);
+        $yourPath = storage_path('tenant'.$subdomain);
  
         if (!File::exists($yourPath)) {
             // If not, create it

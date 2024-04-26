@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Illuminate\Support\Facades\Artisan;
 
 #[AsCommand(name: 'custom-storage:link')]
 class CustomStorageLinkCommand extends Command
@@ -37,6 +38,21 @@ class CustomStorageLinkCommand extends Command
             if (file_exists($link) && ! $this->isRemovableSymlink($link, $this->option('force'))) {
                 $this->components->error("The [$link] link already exists.");
                 continue;
+                $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+
+                // Change directory to the parent directory of the storage folder
+                $parentDirectory = $isWindows ? '..' : '../';
+                chdir(public_path($parentDirectory));
+        
+                // Path to the storage folder
+                $storageFolderPath = public_path('storage');
+        
+                // Remove the storage folder recursively
+                $removeCommand = $isWindows ? 'rmdir /s /q ' : 'rm -rf ';
+                exec($removeCommand . $storageFolderPath);
+              Artisan::call('storage:link', [
+                
+              ]);
             }
 
             if (is_link($link)) {
