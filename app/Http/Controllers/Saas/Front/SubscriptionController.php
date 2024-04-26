@@ -268,7 +268,9 @@ $clientIP = request()->ip();
             File::makeDirectory($yourPath, 0755, true, true);
         }
         
-    
+        Artisan::call('custom-storage:link', [
+                
+        ]);
         Artisan::call('tenants:seed', [
             '--tenants' => $subdomain,
             '--force' => true,
