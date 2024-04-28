@@ -109,31 +109,6 @@ class ImportStudentsController extends Controller
                 $old_roll_no = trim($value[0]);
 
                 if (!empty($old_roll_no)) {
-                    // $month_year_arr = explode('/', $value[0]);
-                    // $year = $month_year_arr[1];
-                    // if ($year=='17') {
-                    //     $student_array['adm_session_id'] = 1;
-                    //     $student_array['cur_session_id'] = 1;
-                    // }elseif($year=='18'){
-                    //     $student_array['adm_session_id'] = 2;
-                    //     $student_array['cur_session_id'] = 2;
-                    // }
-                    // elseif($year=='19'){
-                    //     $student_array['adm_session_id'] = 3;
-                    //     $student_array['cur_session_id'] = 3;
-                    // }elseif($year=='20'){
-                    //     $student_array['adm_session_id'] = 4;
-                    //     $student_array['cur_session_id'] = 4;
-                    // }
-                    // elseif($year=='21'){
-                    //     $student_array['adm_session_id'] = 5;
-                    //     $student_array['cur_session_id'] = 5;
-                    // }
-                    // elseif($year=='22'){
-                    //     $student_array['adm_session_id'] = 6;
-                    //     $student_array['cur_session_id'] = 6;
-                    // }
-                    // elseif($year=='23'){
                         $student_array['adm_session_id'] = 7;
                         $student_array['cur_session_id'] = 7;
                    // }
