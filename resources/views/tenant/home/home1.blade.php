@@ -49,7 +49,7 @@
                      </div>
                  </div>
              </div>
-             <div class="col hide">
+             <div class="col">
                 <div class="card radius-10">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-             <div class="col hide">
+             <div class="col">
                 <div class="card radius-10">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col hide">
+            <div class="col">
                 <div class="card radius-10">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -177,7 +177,7 @@
                      </div>
                  </div>
              </div>
-             <div class="col hide">
+             <div class="col">
                  <div class="card radius-10">
                      <div class="card-body">
                          <div class="d-flex align-items-center">
@@ -191,7 +191,7 @@
                      </div>
                  </div>
              </div>
-             <div class="col hide">
+             <div class="col">
                  <div class="card radius-10">
                      <div class="card-body">
                          <div class="d-flex align-items-center">

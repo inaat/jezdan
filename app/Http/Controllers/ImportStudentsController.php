@@ -10,7 +10,9 @@ use App\Utils\FeeTransactionUtil;
 use App\Models\Classes;
 use App\Models\Student;
 use App\Models\ClassSection;
+use App\Models\Category;
 use App\Models\Campus;
+use App\Models\Session;
 use App\Models\Guardian;
 use App\Models\StudentGuardian;
 use App\Models\HumanRM\HrmEmployee;
@@ -72,7 +74,7 @@ class ImportStudentsController extends Controller
         if (!auth()->user()->can('product.create')) {
             abort(403, 'Unauthorized action.');
         }
-        try {
+      try {
         //Set maximum php execution time
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', -1);
@@ -91,190 +93,417 @@ class ImportStudentsController extends Controller
 
             $total_rows = count($imported_data);
             //dd($total_rows);
+
             foreach ($imported_data as $key => $value) {
                 //Check if any column is missing
-                if (count($value) < 23) {
+                if (count($value) < 48  ||  count($value) >48 ) {
                     $is_valid =  false;
                     $error_msg = "Some of the columns are missing. Please, use latest CSV file template.";
                     break;
                 }
-                $row_no = $key + 1;
                 $student_array = [];
+                $row_no = $key + 1;
                 $student_array['system_settings_id'] = 1;
                 $student_array['created_by'] = $user_id;
-                $student_array['campus_id'] = 1;
-              
+                $campus_name = trim($value[0]);
+                if (!empty($campus_name)) {
+                    $campus=Campus::where('campus_name',$campus_name)->first();
+                    if(!empty($campus)){
+                    $student_array['campus_id'] = $campus->id;
+                    }else{
+                        $campus=Campus::create([
+                            'campus_name'=>$campus_name,
+                            'system_settings_id'=>1,
+                            'created_by'=>$user_id
+                        ]);
+                        $student_array['campus_id'] = $campus->id;
 
-                //dd($value);
-                $old_roll_no = trim($value[0]);
-
-                if (!empty($old_roll_no)) {
-                        $student_array['adm_session_id'] = 7;
-                        $student_array['cur_session_id'] = 7;
-                   // }
-                    $student_array['old_roll_no'] = $old_roll_no;
+                    }
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.name_of_the_campus") . '('.__("english.required").')';
+                    break;
                 }
-                $name = trim($value[1]);
-                if (!empty($name)) {
-                    $student_array['first_name'] = $name;
+                $session_name = trim($value[1]);
+
+                if (!empty($session_name)) {
+                    $session=Session::where('title',$session_name)->first();
+                    if(!empty($session)){
+                    $student_array['adm_session_id'] =$session->id;
+                        $student_array['cur_session_id'] = $session->id;
+                    }else{
+                        
+                        $is_valid =  false;
+                        $error_msg = __('english.session_instruction');
+                        break;
+                    }
+                }else{
+                    $is_valid =  false;
+                    $error_msg = "Session name is Required";
+                    break;
+                }
+                $first_name = trim($value[2]);
+                if (!empty($first_name)) {
+                    $student_array['first_name'] = $first_name;
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.first_name") . '('.__("english.required").')';
+                    break; 
+                }
+                $last_name = trim($value[3]);
+                if (!empty($last_name)) {
+                    $student_array['last_name'] = $last_name;
                 }
                 //admission_date
-                if (!empty($value[2])) {
-                    if (!empty($value[2])) {
-                        $date_excel =\Carbon::parse($value[2])->format('Y-m-d');
+                if (!empty($value[4])) {
+                    if (!empty($value[4])) {
+                        $date_excel =\Carbon::createFromFormat('m-d-Y', trim($value[4]))->format('Y-m-d');
                         $date=$date_excel;
                         $student_array['admission_date'] = $date;
                     }
                 } else {
                     $student_array['admission_date'] = \Carbon::now()->format('Y-m-d');;
                 }
+               
+
                 //Add Classes
                 //Check if Classes exists else create new
-                $adm_class_id = trim($value[3]);
+                $adm_class_id = trim($value[5]);
                 if (!empty($adm_class_id)) {
                     $adm_class = Classes::firstOrCreate(
-                        ['campus_id' => 1, 'title' => $adm_class_id],
-                        ['created_by' => $user_id,'system_settings_id'=>1]
+                        ['campus_id' =>  $student_array['campus_id'], 'title' => $adm_class_id],
+                        [
+                            'created_by' => $user_id,
+                            'system_settings_id' => 1
+                        ]
                     );
                     $student_array['adm_class_id'] = $adm_class->id;
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.admission_class") . '('.__("english.required").')';
+                    break; 
                 }
-                //Check if Classes exists else create new
-                $current_class_id = trim($value[4]);
-                if (!empty($current_class_id)) {
-                    
-                    $cur_class = Classes::firstOrCreate(
-                        ['campus_id' => 1, 'title' => $current_class_id],
-                        ['created_by' => $user_id,'system_settings_id'=>1]
-                    );
-                    
-                    $student_array['current_class_id'] = $cur_class->id;
-                }
-                $adm_class_section_id = trim($value[5]);
-                //dd($adm_class_section_id);
+                $adm_class_section_id = trim($value[6]);
                 if (!empty($adm_class_section_id)) {
-                    // $adm_class_section = ClassSection::firstOrCreate(
-                    //     ['campus_id' => 1, 'section_name' => $adm_class_section_id],
-                    //     ['created_by' => $user_id,'system_settings_id'=>1,'class_id'=>$student_array['adm_class_id']]
-                    // );
-                    $adm_class_section = ClassSection::firstOrCreate(
-                        ['campus_id' => 1, 'section_name' => $adm_class_section_id,'class_id'=>$student_array['adm_class_id']],
-                        ['created_by' => $user_id,'system_settings_id'=>1]
+                    $adm_class_section =ClassSection::firstOrCreate(
+                        ['campus_id' =>  $student_array['campus_id'], 'section_name' => $adm_class_section_id,
+                        'class_id'=>$student_array['adm_class_id']],
+                        [
+                            'created_by' => $user_id,
+                            'system_settings_id' => 1
+                        ]
                     );
                     $student_array['adm_class_section_id'] = $adm_class_section->id;
-                    $student_array['current_class_section_id'] = $adm_class_section->id;
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.admission_class_section") . '('.__("english.required").')';
+                    break; 
                 }
-                if (!empty($value[6])) {
+                //Add Classes
+                //Check if Classes exists else create new
+                $current_class_id = trim($value[7]);
+                if (!empty($current_class_id)) {
+                    $cur_class = Classes::firstOrCreate(
+                        ['campus_id' =>  $student_array['campus_id'], 'title' => $current_class_id],
+                        [
+                            'created_by' => $user_id,
+                            'system_settings_id' => 1
+                        ]
+                    );
+                    $student_array['current_class_id'] = $cur_class->id;
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.current_class") . '('.__("english.required").')';
+                    break; 
+                }
+                $current_class_section_id = trim($value[8]);
+                if (!empty($current_class_section_id)) {
+                    $cur_class_section =ClassSection::firstOrCreate(
+                        ['campus_id' =>  $student_array['campus_id'], 'section_name' => $current_class_section_id,
+                        'class_id'=>$student_array['current_class_id']],
+                        [
+                            'created_by' => $user_id,
+                            'system_settings_id' => 1
+                        ]
+                    );
+                    $student_array['current_class_section_id'] = $cur_class_section->id;
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.current_class_section") . '('.__("english.required").')';
+                    break; 
+                }
+                $gender= trim($value[9]);
+                if (!empty($gender)) {
+                    $student_array['gender'] = strtolower($gender);
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.gender") . '('.__("english.required").')';
+                    break; 
+                }
+                $date_of_birth= trim($value[10]);
+
+                if (!empty($date_of_birth)) {
                     
-                    $student_array['father_name'] = $value[6];
-                }
-                if (!empty($value[7])) {
-                    if (!empty($value[2])) {
-                        $date_excel =\Carbon::parse($value[7])->format('Y-m-d');
+                        $date_excel =\Carbon::createFromFormat('m-d-Y', trim($date_of_birth))->format('Y-m-d');
                         $date=$date_excel;
                         $student_array['birth_date'] = $date;
                     }
-                } else {
-                    $student_array['birth_date'] = \Carbon::now()->format('Y-m-d');
+                else {
+                    $student_array['birth_date'] = \Carbon::now()->format('Y-m-d');;
                 }
-             //   dd(\Carbon::now()->format('Y-m-d'));
-                $BirthPlace= trim($value[8]);
-                if (!empty($BirthPlace)) {
-                    $student_array['BirthPlace'] = $BirthPlace;
+                $category_name=trim($value[11]);
+                if (!empty($category_name)) {
+                    $Category =Category::firstOrCreate(
+                        ['cat_name' => $category_name],
+                        [
+                            'created_by' => $user_id,
+                            'system_settings_id' => 1
+                        ]
+                    );
+                    $student_array['category_id'] =  $Category->id;
+
+                }else{
+                    $student_array['category_id'] =  null;
+
                 }
-                $mobile_no= trim($value[9]);
-                if (!empty($mobile_no)) {
-                    $student_array['mobile_no'] = '+92'.$mobile_no;
+                $religion= trim($value[12]);
+                if (!empty($religion)) {
+                    $student_array['religion'] = ucwords(strtolower($religion));
                 }
-                $std_current_address= trim($value[10]);
-                if (!empty($std_current_address)) {
-                    $student_array['std_current_address'] = ucwords($std_current_address);
-                    $student_array['std_permanent_address'] = $std_current_address;
+                $mobile_no= trim($value[13]);
+                if (!empty($religion)) {
+                    $student_array['mobile_no'] = $mobile_no;
+                }
+                $cnic_no= trim($value[14]);
+                if (!empty($religion)) {
+                    $student_array['cnic_no'] = $cnic_no;
+                }
+                $blood_group= trim($value[15]);
+                if (!empty($religion)) {
+                    $student_array['blood_group'] = $blood_group;
+                }
+                $nationality= trim($value[16]);
+                if (!empty($religion)) {
+                    $student_array['nationality'] = $nationality;
+                }
+                $mother_tongue= trim($value[17]);
+                if (!empty($religion)) {
+                    $student_array['mother_tongue'] = $mother_tongue;
+                }
+                $medical_history= trim($value[18]);
+                if (!empty($religion)) {
+                    $student_array['medical_history'] = $medical_history;
+                }
+                $father_name=trim($value[19]);
+                if (!empty($father_name)) {
+                    
+                    $student_array['father_name'] = $father_name;
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.father_name") . '('.__("english.required").')';
+                    break; 
+                }
+                $father_phone=trim($value[20]);
+                if (!empty($father_phone)) {
+                    
+                    $student_array['father_phone'] = $father_phone;
+                }else{
+                    $is_valid =  false;
+                    $error_msg = __("english.father_phone") . '('.__("english.required").')';
+                    break; 
+                }
+                $father_occupation=trim($value[21]);
+                if (!empty($father_occupation)) {
+                    
+                    $student_array['father_occupation'] = $father_occupation;
+                }
+                $father_cnic_no=trim($value[22]);
+                if (!empty($father_cnic_no)) {
+                    
+                    $student_array['father_cnic_no'] = $father_cnic_no;
+                }
+                $father_cnic_no=trim($value[22]);
+                if (!empty($father_cnic_no)) {
+                    
+                    $student_array['father_cnic_no'] = $father_cnic_no;
+                }
+                $mother_name=trim($value[23]);
+                if (!empty($mother_name)) {
+                    
+                    $student_array['mother_name'] = $mother_name;
+                }
+                $mother_phone=trim($value[24]);
+                if (!empty($mother_phone)) {
+                    
+                    $student_array['mother_phone'] = $mother_phone;
+                }
+                $mother_occupation=trim($value[25]);
+                if (!empty($mother_occupation)) {
+                    
+                    $student_array['mother_occupation'] = $mother_occupation;
+                }
+                $mother_cnic_no=trim($value[26]);
+                if (!empty($mother_cnic_no)) {
+                    
+                    $student_array['mother_cnic_no'] = $mother_cnic_no;
+                    
                 }
 
-                $religion= trim($value[11]);
-                if (!empty($religion)) {
-                    $student_array['religion'] = $religion;
+                $if_guardian_is= trim($value[27]); 
+                if($if_guardian_is==1){
+                    $student_array['guardian_name'] = $student_array['father_name'];
+                    $student_array['guardian_occupation'] = $student_array['father_occupation'];
+                    $student_array['guardian_relation'] = 'Father';
+                    $student_array['guardian_cnic'] = $student_array['father_cnic_no'];
+                    $student_array['guardian_phone'] = $student_array['father_phone'];
+                    $student_array['guardian_email'] = null;
+
+
+
+
+                }else{
+                    $guardian_name= trim($value[28]);
+                    if (!empty($guardian_name)) {
+                        $student_array['guardian_name'] = $guardian_name;
+                    } else {
+                        $is_valid =  false;
+                        $error_msg = __("english.guardian_name") . '('.__("english.required").')';
+                        break; 
+                    }
+                    $guardian_relation= trim($value[29]);
+                    if (!empty($guardian_relation)) {
+                        $student_array['guardian_relation'] = $guardian_relation;
+                    } else {
+                        $student_array['guardian_relation'] = 'Father';
+                    }
+
+                    $guardian_occupation= trim($value[30]);
+                    if (!empty($guardian_occupation)) {
+                        $student_array['guardian_occupation'] = $guardian_occupation;
+    
+                    } else {
+                        $student_array['guardian_occupation'] = '';
+                    }
+                    $guardian_cnic= trim($value[31]);
+                    if (!empty($guardian_cnic)) {
+                        $student_array['guardian_cnic'] = $guardian_cnic;
+                    } else {
+                        $student_array['guardian_cnic'] = '';
+                    }
+                    $guardian_phone= trim($value[32]);
+                    if (!empty($guardian_phone)) {
+                        $student_array['guardian_phone'] = $guardian_phone;
+                    } else {
+                        $student_array['guardian_phone'] = '';
+                    }
+                    $guardian_phone= trim($value[33]);
+                    if (!empty($guardian_phone)) {
+                        $student_array['guardian_email'] = $guardian_phone;
+                    } else {
+                        $student_array['guardian_email'] = '';
+                    }
+                  
                 }
-                $gender= trim($value[12]);
-                if (!empty($gender)) {
-                    $student_array['gender'] = strtolower($gender);
+                $country_id= trim($value[34]);
+                if (!empty($country_id)) {
+                   // $student_array['country_id'] = $country_id;
+                } else{
+                    $student_array['country_id'] = null;
+
                 }
-                $previous_school_name= trim($value[13]);
-                if (!empty($previous_school_name)) {
-                    $student_array['previous_school_name'] = $previous_school_name;
+                $province_id= trim($value[35]);
+                if (!empty($province_id)) {
+                   // $student_array['province_id'] = $province_id;
+                } else{
+                    $student_array['province_id'] = null;
+
                 }
-                $student_tuition_fee= trim($value[14]);
+                $district_id= trim($value[36]);
+                if (!empty($district_id)) {
+                   // $student_array['district_id'] = $district_id;
+                } else{
+                    $student_array['district_id'] = null;
+
+                }
+                $city_id= trim($value[37]);
+                if (!empty($city_id)) {
+                   // $student_array['city_id'] = $city_id;
+                } else{
+                    $student_array['city_id'] = null;
+
+                }
+                $region_id= trim($value[38]);
+                if (!empty($region_id)) {
+                   // $student_array['region_id'] = $region_id;
+                } else{
+                    $student_array['region_id'] = null;
+
+                }  
+                $std_current_address= trim($value[39]);
+                if (!empty($std_current_address)) {
+                    $student_array['std_current_address'] = ucwords($std_current_address);
+                }
+                $std_permanent_address= trim($value[40]);
+                if (!empty($std_permanent_address)) {
+                    $student_array['std_permanent_address'] = $std_permanent_address;
+                }
+
+
+                $student_tuition_fee= trim($value[41]);
                 if (!empty($student_tuition_fee)) {
                     $student_array['student_tuition_fee'] = $student_tuition_fee;
+                }else{
+                    $student_array['student_tuition_fee'] = 0;
+
                 }
-                $student_transport_fee= trim($value[15]);
+                $student_transport_fee= trim($value[42]);
                 if (!empty($student_transport_fee)) {
                     $student_array['student_transport_fee'] = $student_transport_fee;
                     $student_array['is_transport'] = 1;
-                }
-                $mother_tongue= trim($value[16]);
-                if (!empty($mother_tongue)) {
-                    $student_array['mother_tongue'] = $mother_tongue;
-                }
-                $cnic_no= trim($value[17]);
-                if (!empty($cnic_no)) {
-                    $student_array['cnic_no'] = $cnic_no;
-                }
-                $guardian_name= trim($value[18]);
-                if (!empty($guardian_name)) {
-                    $student_array['guardian_name'] = $guardian_name;
-                } else {
-                   // dd($student_array);
-                    $student_array['guardian_name'] = $student_array['father_name'];
-                }
-                $guardian_relation= trim($value[19]);
-                if (!empty($guardian_relation)) {
-                    $student_array['guardian_relation'] = $guardian_relation;
-                } else {
-                    $student_array['guardian_relation'] = 'Father';
-                }
-                $guardian_occupation= trim($value[20]);
-                if (!empty($guardian_occupation)) {
-                    $student_array['guardian_occupation'] = $guardian_occupation;
-                    $student_array['father_occupation'] = $guardian_occupation;
+                }else{
+                    $student_array['student_transport_fee'] = 0;
 
-                } else {
-                    $student_array['guardian_occupation'] = '';
                 }
-                $guardian_cnic= trim($value[21]);
-                if (!empty($guardian_cnic)) {
-                    $student_array['guardian_cnic'] = $guardian_cnic;
-                    $student_array['father_cnic_no'] = $guardian_cnic;
-                } else {
-                    $student_array['guardian_cnic'] = '';
-                }
-                $guardian_phone= trim($value[22]);
-                if (!empty($guardian_phone)) {
-                    $student_array['guardian_phone'] = $guardian_phone;
-                    $student_array['father_phone'] = $guardian_phone;
-                } else {
-                    $student_array['guardian_phone'] = '';
-                }
-              
-                $opening_balance= trim($value[23]);
+                $opening_balance= trim($value[43]);
                 if (!empty($opening_balance)) {
                     $student_array['opening_balance'] = $opening_balance;
                 } else {
                     $student_array['opening_balance'] = 0;
                 }
-                // $status= trim($value[23]);
-                // if ($status==0) {
-                    //         $student_array['status'] = 'pass_out';
-                    //     } else {
-                    //         $student_array['status'] = 'active';
-                    //     }
+                $previous_school_name= trim($value[44]);
+                if (!empty($previous_school_name)) {
+                    $student_array['previous_school_name'] = $previous_school_name;
+                }
+                $last_grade= trim($value[45]);
+                if (!empty($last_grade)) {
+                    $student_array['last_grade'] = $last_grade;
+                }
+                $remark= trim($value[46]);
+                if (!empty($remark)) {
+                    $student_array['remark'] = $remark;
+                }
+                   $status= trim($value[27]);
+                if(!empty($status)){
+                if ($status==0) {
+                            $student_array['status'] = 'pass_out';
+                        } else {
+                            $student_array['status'] = 'active';
+                        }
+                    }
+                        else{
+                            $is_valid =  false;
+                            $error_msg = __("english.student_status") . '('.__("english.required").')';
+                            break; 
+                        }
+                //dd($student_array);////ok
 
+            
                 //Assign to formatted array
                 //dd($student_array);
                 $formatted_data[] = $student_array;
             }
         }
-      // dd($formatted_data);
+       //dd($formatted_data);
         if (!$is_valid) {
             throw new \Exception($error_msg);
         }
@@ -286,14 +515,18 @@ class ImportStudentsController extends Controller
                 $ref_admission_no=$this->studentUtil->setAndGetReferenceCount('admission_no', true, false);
                 $admission_no=$this->studentUtil->generateReferenceNumber('admission', $ref_admission_no);
                 $student_data['admission_no'] = $admission_no;
-                $student_data['roll_no'] = $this->studentUtil->getRollNo($student_data['cur_session_id']);
+                $student_data['roll_no'] = $this->studentUtil->getRollNo($student_data['adm_session_id']);
+                $guardian_email=$student_data['roll_no'].'gu@gmail.com';
+                if(!empty($student_data['guardian_email'])){
+                    $guardian_email=$student_data['guardian_email'];
+                }
                 $guardian_data=[
                 'guardian_name'=>$student_data['guardian_name'],
                 'guardian_relation'=>$student_data['guardian_relation'],
                 'guardian_occupation'=>$student_data['guardian_occupation'],
                 'guardian_cnic'=>$student_data['guardian_cnic'],
                 'guardian_phone'=>$student_data['guardian_phone'],
-                'guardian_email'=>$student_data['roll_no'].'gu@gmail.com',
+                'guardian_email'=>$guardian_email,
                 ];
                 if (isset($student_data['opening_balance'])) {
                     unset($student_data['opening_balance']);
@@ -313,6 +546,9 @@ class ImportStudentsController extends Controller
                 if (isset($student_data['guardian_phone'])) {
                     unset($student_data['guardian_phone']);
                 }
+                if (isset($student_data['guardian_email'])) {
+                    unset($student_data['guardian_email']);
+                }
               
              //   dd($student_data);
                 $student_data['email'] = $student_data['roll_no'].'@gmail.com';
@@ -324,6 +560,7 @@ class ImportStudentsController extends Controller
                 'student_id' => $student->id,
                 'guardian_id' => $guardian->id,
                 ]);
+               // dd( $student);
                 //Add opening balance
                 if (!empty($opening_balance)) {
                     if ($opening_balance>0) {

@@ -478,6 +478,7 @@ all the campuses of this organization.',
 'mother'=>'Mother',
 
 'guardian_name'=>'Guardian Name',
+'guardian_cnic_no'=>'Guardian Cnic No',
 'guardian_email'=>'Guardian Email',
 'guardian_relation'=>'Guardian Relation',
 'guardian_phone'=>'Guardian Phone',
@@ -1681,10 +1682,23 @@ During The Admission',
 'custom_page_create'=>'Custom Page Create',
 'front_page_navbar'=>'Front Page Navbar',
 'admission_banner'=>'Admission Banner',
-'admission_open'=>'Admission Open'
-
-
-
+'admission_open'=>'Admission Open',
+'name_of_the_campus'=>"Name of the campus",
+'session_instruction'=>"Plz select those session name  it already exist in your database",
+'admission_class_section'=>'Admission Class Section',
+"current_class_section"=>"Current Class Section",
+"mobile_instruction"=>"Mobile Number With Country Code",
+"blood_group_instruction"=>"Format: 'O+','O-','A+','A-','B+','B-','AB+','AB-'",
+"if_guardian_is_instruction"=>"Format: 0=No , 1=Yes",
+"student_status_instruction"=>"Format:0=pass_out , 1=active",
+'instructions' => 'Instructions',
+'instruction_line1' => 'Follow the instructions carefully before importing the file.',
+'instruction_line2' => 'The columns of the file should be in the following order.',
+'col_no' => 'Column Number',
+'col_name' => 'Column Name',
+'instruction' => 'Instruction',
+'required' => 'Required',
+'optional' => 'Optional',
 
 
 

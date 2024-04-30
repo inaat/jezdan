@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
         "laravellux/html": "^7.1",
+        "maatwebsite/excel": "^3.1",
         "mews/purifier": "^3.4",
         "milon/barcode": "^11.0",
         "mpdf/mpdf": "^8.2",
