@@ -58,7 +58,7 @@
                          <br><br>
                          <div class="row">
                              <div class="col-sm-4">
-                                 <a href="{{ url('/files/import_students_template.xlsx') }}" class="btn btn-success" download><i class="fa fa-download"></i> @lang('english.download_template_file')</a>
+                                 <a href="{{ url('/tenant/files/import_students_template.xlsx') }}" class="btn btn-success" download><i class="fa fa-download"></i> @lang('english.download_template_file')</a>
                              </div>
                          </div>
                      </div>
