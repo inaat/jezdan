@@ -85,7 +85,7 @@ class CertificateBulkPrintController extends Controller
         }
         // try {
         //     $output = ['success' => 0,
-        //     'msg' => trans("messages.something_went_wrong")
+        //     'msg' => trans("english.something_went_wrong")
         //     ];
             $input = $request->input();
 
@@ -106,14 +106,14 @@ class CertificateBulkPrintController extends Controller
                 }
             } else {
                 $output = ['success' => 0,
-                'msg' => trans("messages.no_data")
+                'msg' => trans("english.no_data")
             ];
             }
         // } catch (\Exception $e) {
         //     \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
 
         //     $output = ['success' => 0,
-        //              'msg' => trans("messages.something_went_wrong")
+        //              'msg' => trans("english.something_went_wrong")
         //              ];
         // }
 

@@ -165,7 +165,7 @@ if ($class_subject->subject_input =='eng') {
         if (request()->ajax()) {
             try {
                 $output = ['success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
                 ];
                
                 $receipt = $this->receiptContent($id);
@@ -178,7 +178,7 @@ if ($class_subject->subject_input =='eng') {
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
                 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 

@@ -567,6 +567,11 @@ class ImportStudentsController extends Controller
                         $this->studentUtil->createOpeningBalanceTransaction($student->system_settings_id, $student, $opening_balance, false);
                     }
                 }
+                $user = $this->studentUtil->studentCreateUpdateLogin($student, 'student', $student->id);
+                $student->user_id = $user->id;
+                $student->save();
+                $this->studentUtil->createWithdrawRegister($student);
+                $guardian_login =  $this->studentUtil->guardianCreateUpdateLogin($guardian, 'guardian', $guardian->id);
                 $this->studentUtil->setAndGetReferenceCount('admission_no', false, true);
                 $this->studentUtil->setAndGetRollNoCount('roll_no', false, true, $student->adm_session_id);
             }

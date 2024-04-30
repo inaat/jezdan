@@ -92,7 +92,7 @@ class ExamResultController extends Controller
         if (request()->ajax()) {
             try {
                 $output = ['success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
                 ];
                 $students=ExamAllocation::with(['student','campuses','session','current_class','current_class_section','exam_create','exam_create.term','grade','subject_result','subject_result.subject_grade','subject_result.subject_name'])
                 ->findOrFail($id);
@@ -107,7 +107,7 @@ class ExamResultController extends Controller
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 
@@ -139,7 +139,7 @@ class ExamResultController extends Controller
         if (request()->ajax()) {
              try {
                 $output = ['success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
                 ];
                 $input= $request->input();
                 $students_details=ExamAllocation::with(['student'=>function ($query) {
@@ -160,7 +160,7 @@ class ExamResultController extends Controller
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 
@@ -234,7 +234,7 @@ class ExamResultController extends Controller
         if (request()->ajax()) {
             try {
                 $output = ['success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
                 ];
                 $input=$request->input();
                 //dd($input);
@@ -277,7 +277,7 @@ class ExamResultController extends Controller
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 

@@ -46,7 +46,7 @@ class FeeCardPrintController extends Controller
            try {
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
 
                 $feeCards = [];
@@ -111,7 +111,7 @@ class FeeCardPrintController extends Controller
 
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
             }
 
@@ -129,7 +129,7 @@ class FeeCardPrintController extends Controller
             try {
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
                 $campus_id = $request->input('campus_id');
                 $class_id = $request->input('class_id');
@@ -232,7 +232,7 @@ class FeeCardPrintController extends Controller
 
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
             }
 

@@ -66,7 +66,7 @@ class HrmShiftController extends Controller
                 })
                 ->addColumn('action', function ($row) {
 if (auth()->user()->can('shift.update')) {
-    $html = '<a href="#" data-href="' . action('Hrm\HrmShiftController@edit', [$row->id]) . '" data-container="#edit_shift_modal" class="btn-modal btn btn-xs btn-primary"><i class="fas fa-edit" aria-hidden="true"></i> ' . __("messages.edit") . '</a> &nbsp;<a href="#" data-href="' . action('Hrm\HrmShiftController@getAssignUsers', [$row->id]) . '" data-container="#employee_shift_modal" class="btn-modal btn btn-xs btn-success"><i class="fas fa-users" aria-hidden="true"></i> ' . __("english.assign_users") . '</a>';
+    $html = '<a href="#" data-href="' . action('Hrm\HrmShiftController@edit', [$row->id]) . '" data-container="#edit_shift_modal" class="btn-modal btn btn-xs btn-primary"><i class="fas fa-edit" aria-hidden="true"></i> ' . __("english.edit") . '</a> &nbsp;<a href="#" data-href="' . action('Hrm\HrmShiftController@getAssignUsers', [$row->id]) . '" data-container="#employee_shift_modal" class="btn-modal btn btn-xs btn-success"><i class="fas fa-users" aria-hidden="true"></i> ' . __("english.assign_users") . '</a>';
     return $html;
 }else{
     return '';
@@ -126,7 +126,7 @@ if (auth()->user()->can('shift.update')) {
             \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
             
             $output = ['success' => false,
-                            'msg' => __("messages.something_went_wrong")
+                            'msg' => __("english.something_went_wrong")
 
                         ];
         }
@@ -201,7 +201,7 @@ if (auth()->user()->can('shift.update')) {
             \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
                 
             $output = ['success' => false,
-                                'msg' => __("messages.something_went_wrong")
+                                'msg' => __("english.something_went_wrong")
 
                             ];
         }
@@ -294,7 +294,7 @@ if (auth()->user()->can('shift.update')) {
             \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
             
             $output = ['success' => false,
-                            'msg' => __("messages.something_went_wrong")
+                            'msg' => __("english.something_went_wrong")
 
                         ];
         }

@@ -56,7 +56,7 @@ class AwardAttendanceController extends Controller
         if (request()->ajax()) {
             try {
                 $output = ['success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
                 ];
                 $input = $request->input();
                 $data=ExamAllocation::with(['student','campuses','session','current_class','current_class_section','exam_create','exam_create.term'])
@@ -82,7 +82,7 @@ class AwardAttendanceController extends Controller
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
                 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 

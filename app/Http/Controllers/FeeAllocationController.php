@@ -424,7 +424,7 @@ class FeeAllocationController extends Controller
         try {
             $output = [
                 'success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
             ];
             DB::beginTransaction();
             $transaction = FeeTransaction::where('id', $id)
@@ -443,7 +443,7 @@ class FeeAllocationController extends Controller
 
             $output = [
                 'success' => true,
-                'msg' => __('english.sale_delete_success')
+                'msg' => __('english.deleted_success')
             ];
             DB::commit();
         } catch (\Exception $e) {
@@ -452,7 +452,7 @@ class FeeAllocationController extends Controller
 
             $output = [
                 'success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
             ];
         }
 

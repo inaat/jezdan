@@ -197,7 +197,7 @@ class ExpenseTransactionUtil extends Util
       
         try {
             $output = ['success' => 0,
-            'msg' => trans("messages.something_went_wrong")
+            'msg' => trans("english.something_went_wrong")
             ];
             DB::beginTransaction();
         $transaction = ExpenseTransaction::where('id', $transaction_id)
@@ -218,7 +218,7 @@ class ExpenseTransactionUtil extends Util
 
         $output = [
                     'success' => true,
-                    'msg' => __('english.sale_delete_success')
+                    'msg' => __('english.deleted_success')
                 ];
                 DB::commit();
             } catch (\Exception $e) {
@@ -226,7 +226,7 @@ class ExpenseTransactionUtil extends Util
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
                 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 

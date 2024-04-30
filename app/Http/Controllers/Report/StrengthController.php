@@ -92,7 +92,7 @@ class StrengthController extends Controller
             $data=[];
             try {
                 $output = ['success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
                 ];
                 if ($request->input('print_type')=='section_wise') {
                 $count_class_sections_student=ClassSection::leftjoin('campuses as cam', 'class_sections.campus_id', '=', 'cam.id')
@@ -145,7 +145,7 @@ class StrengthController extends Controller
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
                 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 

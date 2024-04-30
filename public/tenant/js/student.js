@@ -339,7 +339,33 @@ $(document).ready(function() {
 
         utilsScript: base_path + "/tenant/js/intl-tel-input/utils.js",
     });
+    $(document).on('click', '.delete-student', function(e) {
+        e.preventDefault();
+        swal({
+            title: LANG.sure,
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then(willDelete => {
+            if (willDelete) {
+                var href = $(this).attr('href');
+                $.ajax({
+                    method: 'DELETE',
+                    url: href,
+                    dataType: 'json',
+                    success: function(result) {
+                        if (result.success == true) {
+                            toastr.success(result.msg);
+                            students_table.ajax.reload();
 
+                        } else {
+                            toastr.error(result.msg);
+                        }
+                    },
+                });
+            }
+        });
+    });
     $(document).on("change", "#region_ids", function() {
         var doc = $(this);
         __get_region_transport(doc);

@@ -1699,7 +1699,8 @@ During The Admission',
 'instruction' => 'Instruction',
 'required' => 'Required',
 'optional' => 'Optional',
-
+"student_have_exam_you_can't_delete_this"=>"Student have exam you can't delete this",
+"student_have_transaction_you_can't_delete_this"=>"Student have transaction you can't delete this"
 
 
 ];

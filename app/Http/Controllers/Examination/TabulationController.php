@@ -83,7 +83,7 @@ class TabulationController extends Controller
         if (request()->ajax()) {
             try {
                 $output = ['success' => 0,
-            'msg' => trans("messages.something_went_wrong")
+            'msg' => trans("english.something_went_wrong")
             ];
                 $details=[];
                 $input= $request->input();
@@ -116,7 +116,7 @@ class TabulationController extends Controller
             
                 if(Empty($details)) {
                     $output = ['success' => 0,
-                    'msg' => trans("messages.this_class_have_no_section")
+                    'msg' => trans("english.this_class_have_no_section")
                     ];
                     return $output;
                 }     
@@ -129,7 +129,7 @@ class TabulationController extends Controller
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
             
                 $output = ['success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                     ];
             }
 

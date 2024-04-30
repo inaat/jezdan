@@ -358,9 +358,15 @@ if ($row->total_admission_fee<=0) {
                             $html.='<li><a class="dropdown-item pay_fee_due "href="' . action('FeeTransactionPaymentController@getPayStudentDue', [$row->id]) . '"><i class="fas fa-money-bill-alt "></i> ' . __("english.pay_due_amount") . '</a></li>';
                         }
                     }
+               
                     if (auth()->user()->can('student.status')) {
                         $html .= '<li><a class="dropdown-item update_status" href="#" data-student_id="' . $row->id .
                                        '" data-status="' . $row->status . '"><i class="lni lni-invention" aria-hidden="true" ></i>' . __("english.update_status") . '</a></li>';
+                    }
+                    if (auth()->user()->can('student.destroy')) {
+                        $html .= '<li>
+                        <a href="' . action('StudentController@destroy', [$row->id]) . '" class="dropdown-item delete-student "><i class="fas fa-trash text-danger"></i>' . __("english.delete") . '</a>
+                        </li>';                        
                     }
                     $html .= '</ul></div>';
 
@@ -673,7 +679,51 @@ if ($row->total_admission_fee<=0) {
      */
     public function destroy($id)
     {
-        //
+  
+            if (!auth()->user()->can('fee.fee_transaction_delete')) {
+                abort(403, 'Unauthorized action.');
+            }
+            try {
+            
+                DB::beginTransaction();
+                $transaction = FeeTransaction::where('student_id', $id)
+                    ->first();
+                $exam = ExamAllocation::where('student_id', $id)
+                    ->first();
+                if(empty(($transaction) &&  empty($exam) )){
+                    
+                    Student::find($id)->delete(); 
+                    $output = [
+                        'success' => true,
+                        'msg' => __('english.deleted_success')
+                    ];
+                    DB::commit();
+                }else{
+                    if(!empty( $transaction )){
+                    $output = [
+                        'success' => 0,
+                        'msg' => trans("english.student_have_transaction_you_can't_delete_this")
+                    ];
+                }else{
+                    $output = [
+                        'success' => 0,
+                        'msg' => trans("english.student_have_exam_you_can't_delete_this")
+                    ]; 
+                }
+                }
+              
+            } catch (\Exception $e) {
+                DB::rollBack();
+                \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+    
+                $output = [
+                    'success' => 0,
+                    'msg' => trans("english.something_went_wrong")
+                ];
+            }
+    
+        return $output;
+        
     }
 
 

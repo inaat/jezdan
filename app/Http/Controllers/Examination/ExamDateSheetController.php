@@ -312,7 +312,7 @@ class ExamDateSheetController extends Controller
             try {
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
                 $input = $request->input();
            
@@ -353,7 +353,7 @@ class ExamDateSheetController extends Controller
 
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
             }
 
@@ -371,7 +371,7 @@ class ExamDateSheetController extends Controller
             try {
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
                 $input = $request->input();
                 $data = ExamAllocation::with(['student', 'campuses', 'session', 'current_class', 'current_class_section', 'exam_create', 'exam_create.term'])
@@ -405,7 +405,7 @@ class ExamDateSheetController extends Controller
 
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
             }
 
@@ -455,7 +455,7 @@ class ExamDateSheetController extends Controller
             try {
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
                 $input = $request->input();
                 $data = ExamAllocation::with(['student', 'campuses', 'session', 'current_class', 'current_class_section', 'exam_create', 'exam_create.term'])
@@ -488,7 +488,7 @@ class ExamDateSheetController extends Controller
 
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
             }
 
@@ -664,7 +664,7 @@ class ExamDateSheetController extends Controller
             try {
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
                 $input = $request->input();
                 $date_sheets = ExamDateSheet::with(['subject','subject.classes']) ->where('session_id', $input['session_id'])
@@ -683,7 +683,7 @@ class ExamDateSheetController extends Controller
 
                 $output = [
                     'success' => 0,
-                    'msg' => trans("messages.something_went_wrong")
+                    'msg' => trans("english.something_went_wrong")
                 ];
             }
 

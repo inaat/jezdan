@@ -1042,7 +1042,7 @@ class AccountController extends Controller
             \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
         
             $output = ['success' => false,
-                        'msg' => __("messages.something_went_wrong")
+                        'msg' => __("english.something_went_wrong")
                     ];
         }
 

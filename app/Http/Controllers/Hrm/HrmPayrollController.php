@@ -119,7 +119,7 @@ if (auth()->user()->can('hrm_payment.view')) {
 }  if (auth()->user()->can('payroll.delete')) {
                 if ($row->payment_status == "due") {
                     $html .= '<li>
-                        <a href="'.action('Hrm\HrmPayrollController@destroy', [$row->id]).'" class="delete-hrm_transaction"><i class="fas fa-trash"></i>'.__("messages.delete").'</a>
+                        <a href="'.action('Hrm\HrmPayrollController@destroy', [$row->id]).'" class="delete-hrm_transaction"><i class="fas fa-trash"></i>'.__("english.delete").'</a>
                         </li>';
                 }
                 }
@@ -309,7 +309,7 @@ if (auth()->user()->can('hrm_payment.view')) {
             \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
             
             $output = ['success' => false,
-                'msg' => __("messages.something_went_wrong")
+                'msg' => __("english.something_went_wrong")
             ];
         }
         return redirect('hrm-payroll')->with('status', $output);
@@ -446,7 +446,7 @@ if (auth()->user()->can('hrm_payment.view')) {
             \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
     
             $output = ['success' => false,
-        'msg' => __("messages.something_went_wrong")
+        'msg' => __("english.something_went_wrong")
     ];
         }
         return redirect('hrm-payroll')->with('status', $output);
@@ -475,7 +475,7 @@ if (auth()->user()->can('hrm_payment.view')) {
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
 
                 $output['success'] = false;
-                $output['msg'] = trans("messages.something_went_wrong");
+                $output['msg'] = trans("english.something_went_wrong");
             }
 
             return $output;
@@ -681,7 +681,7 @@ if (auth()->user()->can('hrm_payment.view')) {
       
         try {
             $output = ['success' => 0,
-            'msg' => trans("messages.something_went_wrong")
+            'msg' => trans("english.something_went_wrong")
             ];
             DB::beginTransaction();
         $transaction = HrmTransaction::where('id', $transaction_id)
@@ -703,7 +703,7 @@ if (auth()->user()->can('hrm_payment.view')) {
 
         $output = [
                     'success' => true,
-                    'msg' => __('english.sale_delete_success')
+                    'msg' => __('english.deleted_success')
                 ];
                 DB::commit();
             } catch (\Exception $e) {
@@ -711,7 +711,7 @@ if (auth()->user()->can('hrm_payment.view')) {
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
                 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 
@@ -727,7 +727,7 @@ if (auth()->user()->can('hrm_payment.view')) {
         if (request()->ajax()) {
             try {
                 $output = ['success' => 0,
-                'msg' => trans("messages.something_went_wrong")
+                'msg' => trans("english.something_went_wrong")
                 ];
                 $transaction = HrmTransaction::where('id', $id)
         ->with(['employee','payment_lines','employee.designations', 'campus','allowance','allowance.hrm_allowance','deduction','deduction.hrm_deduction'])
@@ -746,7 +746,7 @@ if (auth()->user()->can('hrm_payment.view')) {
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
                 
                 $output = ['success' => 0,
-                        'msg' => trans("messages.something_went_wrong")
+                        'msg' => trans("english.something_went_wrong")
                         ];
             }
 

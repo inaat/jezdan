@@ -53,7 +53,7 @@ class CertificatePrintController extends Controller
         try {
              
             $output = ['success' => 0,
-            'msg' => trans("messages.something_went_wrong")
+            'msg' => trans("english.something_went_wrong")
             ];
             // dd($request);
             $input = $request->input();
@@ -82,7 +82,7 @@ class CertificatePrintController extends Controller
             }
             }else{
                 $output = ['success' => 0,
-                'msg' => trans("messages.no_data")
+                'msg' => trans("english.no_data")
             ];
             }
              
@@ -93,7 +93,7 @@ class CertificatePrintController extends Controller
              \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
              
              $output = ['success' => 0,
-                     'msg' => trans("messages.something_went_wrong")
+                     'msg' => trans("english.something_went_wrong")
                      ];
          }
 

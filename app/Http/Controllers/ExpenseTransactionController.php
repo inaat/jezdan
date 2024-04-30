@@ -126,7 +126,7 @@ class ExpenseTransactionController extends Controller
                         }
                         if ($row->payment_status == "due") {
                             $html .= '<li>
-                        <a href="'.action('ExpenseTransactionController@destroy', [$row->id]).'" class="delete-hrm_transaction"><i class="fas fa-trash"></i>'.__("messages.delete").'</a>
+                        <a href="'.action('ExpenseTransactionController@destroy', [$row->id]).'" class="delete-hrm_transaction"><i class="fas fa-trash"></i>'.__("english.delete").'</a>
                         </li>';
                         }
                     }
@@ -354,7 +354,7 @@ class ExpenseTransactionController extends Controller
                 \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
 
                 $output['success'] = false;
-                $output['msg'] = trans("messages.something_went_wrong");
+                $output['msg'] = trans("english.something_went_wrong");
             }
 
             return $output;

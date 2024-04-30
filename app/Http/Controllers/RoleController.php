@@ -32,11 +32,11 @@ class RoleController extends Controller
                     if (!$row->is_default) {
                         $action = '';
                         if (auth()->user()->can('roles.update')) {
-                            $action .= '<a href="' . action('RoleController@edit', [$row->id]) . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> ' . __("messages.edit") . '</a>';
+                            $action .= '<a href="' . action('RoleController@edit', [$row->id]) . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> ' . __("english.edit") . '</a>';
                         }
                         if (auth()->user()->can('roles.delete')) {
                             $action .= '&nbsp
-                                <button data-href="' . action('RoleController@destroy', [$row->id]) . '" class="btn btn-xs btn-danger delete_role_button"><i class="glyphicon glyphicon-trash"></i> ' . __("messages.delete") . '</button>';
+                                <button data-href="' . action('RoleController@destroy', [$row->id]) . '" class="btn btn-xs btn-danger delete_role_button"><i class="glyphicon glyphicon-trash"></i> ' . __("english.delete") . '</button>';
                         }
                         
                         return $action;
